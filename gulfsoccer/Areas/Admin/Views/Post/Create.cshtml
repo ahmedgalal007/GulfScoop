@@ -1,0 +1,153 @@
+﻿@model DAL.Database.Post
+@using Kendo.Mvc.UI;
+
+@{
+    // ViewBag.Title = "";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section  styles{
+    <style rel="stylesheet" type="text/css">
+        input, select, textarea {max-width:100%;}
+        #treeview{ border-top: gray solid 1px; border-bottom: gray solid 1px; margin:0px 0;}
+        #treeview .k-sprite {
+            background-image: url("@Url.Content("~/Content/web/treeview/coloricons-sprite.png")");
+        }
+
+        .rootfolder { background-position: 0 0; }
+        .folder     { background-position: 0 -16px; }
+        .pdf        { background-position: 0 -32px; }
+        .html       { background-position: 0 -48px; }
+        .image      { background-position: 0 -64px; }
+        Input{width:100%;}
+        #thumbnail{min-height:150px !important; border:gray solid 1px; width:100%; margin: 10px 0;}
+    </style>
+}
+<h2>Create</h2>
+
+@*@using (Html.BeginForm("", "/api/Admin/Post", FormMethod.Post, new { style = "width:100%;" }))
+    @using (Ajax.BeginForm("", "", null, new AjaxOptions { HttpMethod = "POST", Url = "/api/Admin/Post" }, new { style = "width:100%;" }))
+    {*@
+<form method="post" action="/Admin/Post/Create" style="width:100%;">
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-vertical">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Created DateTime -->
+                <div class="form-group">
+                    <label for="createddatetimepicker" class="control-label col-md-2">Created</label>
+                    <div class="col-md-12">
+                        <input id="createddatetimepicker" name="created" title="Last Update" style="width: 100%;" />
+                    </div>
+                </div>
+                <!-- Updated DateTime -->
+                <div class="form-group">
+                    <label for="updateddatetimepicker" class="control-label col-md-2">Updated</label>
+                    <div class="col-md-12">
+                        <input id="updateddatetimepicker" name="updated" title="Last Update" style="width: 100%;" />
+                    </div>
+                </div>
+
+                <!-- Publish Submit Button-->
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="submit" value="Publish" class="k-primary k-button" />
+                    </div>
+                </div>
+
+                <!-- Featured Image Button-->
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div id="dialog"></div>
+                        <div id="add-product" class="demo-section k-content">
+                            <div id="thumbnail" width="100%">
+
+                            </div>
+                            <input type="hidden" id="featuredImage" name="featuredImage" />
+                            <button id="changeImage" class="k-primary">Change Image</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Categories TreeView-->
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="k-content">
+                            <label for="treeview">Categories</label>
+                            <input type="hidden" id="selectedCategories" name="categories" />
+                            <div id="treeview"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tags MultiSelect-->
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="tags" id="tags_label">tags</label>
+                    <div class="col-md-12">
+                        <input type="hidden" id="selectedTags" name="tags"/>
+                        <select id="tags" name="tags"></select>
+                    </div>
+                    <script id="noDataTemplate" type="text/x-kendo-tmpl">
+                        # var value = instance.input.val(); #
+                        # var id = instance.element[0].id; #
+                        <div>
+                            No data found. Do you want to add new item - '#: value #' ?
+                        </div>
+                        <br />
+                        <button class="k-button" onclick="addNew('#: id #', '#: value #')" ontouchend="addNew('#: id #', '#: value #')">Add new item</button>
+                    </script>
+                </div>
+            </div>
+            <div class="col-md-9">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <!-- Title -->
+                <div class="form-group">
+                    <label class="control-label col-md-12" for="title">title</label>
+                    <div class="col-md-12">
+                        <input class="k-textbox" id="title" name="title" style="width:100%">
+                        <span class="field-validation-valid text-danger" data-valmsg-for="title" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+
+                <!-- Body Html Editor-->
+                <div class="form-group">
+                    <label for="editor" class="control-label col-md-12">Content</label>
+                    <div class="col-md-12">
+                        <!-- k-rtl-->
+                        <textarea id="editor" name="body" rows="10" cols="30" style="height:440px"></textarea>
+                    </div>
+                </div>
+
+                <!-- Owner Autocompelete -->
+                <div class="form-group">
+                    <label for="owner" class="control-label col-md-12">Owner</label>
+                    <div class="col-md-12">
+                        <input id="owner" name="owner" style="width:100%;" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <hr />
+
+
+    </div>
+</form>
+@*}*@
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    <script type="text/javascript" src="~/Scripts/site/app/_shared/CheckTreeView.js"></script>
+    <script type="text/javascript" src="~/Scripts/site/app/_shared/MultiSelect.js"></script>
+    <script type="text/javascript" src="~/Scripts/site/app/admin.post.create.js"></script>
+    <script>
+        $("#owner").val("@User.Identity.Name");
+    </script>
+}

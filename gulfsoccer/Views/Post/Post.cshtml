@@ -1,0 +1,42 @@
+﻿@model gulfsoccer.Models.gulfsoccer.PostViewModel
+
+@{
+    ViewBag.Title = Model.title;
+    Layout = "~/Views/Shared/_Layout_Post.cshtml";
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <a class="btn btn-danger btn-toolbar" href="/Admin/Post/Edit/@Model.id">Edit</a>
+}
+
+<h2>@Model.title</h2>
+<hr />
+Posted on : @Model.created.ToString("dddd dd MMM yyyy at hh:mm tt")
+<hr />
+
+<figure class="mbr-figure container">
+    <div class="image-block" style="width: 100%;">
+        <img class="lazyload" data-src="@Model.featuredImage.Uri" alt="Mobirise" title="" media-simple="true" width="100%">
+    </div>
+</figure>
+<hr />
+<p>
+    @MvcHtmlString.Create(HttpUtility.HtmlDecode(Model.body))
+</p>
+<hr />
+@foreach (var cat in Model.categories)
+{
+    <a class="btn btn-outline-primary" href="/Category/@cat.id">@cat.name</a>
+}
+
+
+<hr />
+
+@foreach (var tag in Model.tags)
+{
+    <a class="btn btn-outline-danger" href="/Tag/@tag.Id">@tag.Name</a>
+}
+
+
+<hr />

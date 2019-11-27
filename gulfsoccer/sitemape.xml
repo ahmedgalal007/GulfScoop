@@ -1,0 +1,6 @@
+<siteMapes>
+  <siteMape key="Posts" url="/sitemape_posts.xml" title="Posts" />
+  <siteMape key="Categories" url="/sitemape_categories.xml" title="Categories" />
+  <siteMape key="Tags" url="/sitemape_tags.xml" title="Tags" />
+  <siteMape key="Media" url="/sitemape_Media.xml" title="Media" />
+</siteMapes>

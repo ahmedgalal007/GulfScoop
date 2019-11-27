@@ -1,0 +1,35 @@
+﻿@model List<gulfsoccer.Models.gulfsoccer.PostViewModel_Short>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div id="cards-container" class="row mb-3 card-deck">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 py-2">
+            <div class="card h-100" style="width: 18rem;">
+                <svg class="bd-placeholder-img card-img-top border-bottom" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap">
+                    <defs>
+                        <pattern id="img_@item.id" patternUnits="userSpaceOnUse" width="100%" height="180">
+                            <image class='twombly' xlink:href="@item.featuredImage.Uri" x="0" y="0"
+                                   width="100%" height="180" />
+                        </pattern>
+                    </defs>
+                    <title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="url(#img_@item.id)"></rect>
+                    <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
+                </svg>
+                <div class="card-body d-flex flex-column ">
+                    <h5 class="card-title">@item.title</h5>
+                    <p class="card-text">@MvcHtmlString.Create(HttpUtility.HtmlDecode(item.body))</p>
+                    <a href="@item.permalink" class="btn btn-block btn-outline-primary mt-auto mb-0">Read More..</a>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
