@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL.Database
 {
-    public class PostCategory
+    public partial class PostCategory
     {
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         //[Key, Column(Order = 0)]

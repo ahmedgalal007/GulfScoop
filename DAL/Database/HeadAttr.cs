@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DAL.Database
 {
-    public class HeadAttr
+    public partial class HeadAttr
     {
         [Key]
         public int id { get; set; }

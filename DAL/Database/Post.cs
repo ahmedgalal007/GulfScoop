@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace DAL.Database
 {
-    public class Post
+    public partial class Post
     {
         [Key]
         public int Id { get; set; }

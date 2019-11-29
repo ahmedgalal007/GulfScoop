@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL.Database
 {
-    public class PermaLink
+    public partial class PermaLink
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]

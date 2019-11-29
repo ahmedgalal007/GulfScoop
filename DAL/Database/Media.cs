@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DAL.Database
 {
-    public class Media
+    public partial class Media
     {
         [Key]
         public int Id { get; set; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DAL.Database
 {
-    public class Album
+    public partial class Album
     {
         public int Id { get; set; }
         public string Name { get; set; }

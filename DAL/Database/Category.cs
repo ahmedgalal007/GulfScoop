@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DAL.Database
 {
-    public class Category
+    public partial class Category
     {
         [Key]
         public int id { get; set; }

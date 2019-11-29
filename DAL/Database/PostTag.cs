@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL.Database
 {
-    public class PostTag
+    public partial class PostTag
     {
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         //[Key, Column(Order = 0)]
