@@ -11,9 +11,8 @@ namespace gulfsoccer.Models.gulfsoccer
     {
         public int id { get; set; }
         public string title { get; set; }
-
         public string body { get; set; }
-
+        public string description { get; set; }
         public DateTime created { get; set; }
         public DateTime updated { get; set; }
         public Category mainCategory { get; set; }

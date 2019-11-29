@@ -169,6 +169,35 @@ $(document).ready(function () {
         filter: "contains",
         minLength: 3
     });
+    $("#mainCategory").kendoAutoComplete({
+        dataSource: {
+            schema: {
+                model: {
+                    fields: {
+                        Name: { type: "string" }
+                    },
+                    id: "ID"
+                }
+            },
+            transport: {
+                parameterMap: function (_data, type) {
+                    // if type is "read", then data is { foo: 1 }, we also want to add { "bar": 2 }
+                    if (type) { }
+                    _data = {};
+                    return { filter: $("#mainCategory").val() };
+                },
+                prefix: "",
+                read: {
+                    data: onAdditionalData,
+                    url: "/Admin/Autocompelete/FilterCategoryList"
+                }
+            }
+        },
+        dataTextField: "Name",
+        // "serverFiltering": true,
+        filter: "contains",
+        minLength: 3
+    });
 });
 function initOpen(e) {
     if (e) { }

@@ -12,6 +12,7 @@ namespace DAL.Database
         public int Id { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
+        public string Description { get; set; }
         public int FeaturedAlbum { get; set; }
         public int FeaturedImage { get; set; }
         public DateTime Created { get; set; }

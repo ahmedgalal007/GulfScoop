@@ -39,8 +39,8 @@ namespace gulfsoccer.Handlers
                 // Format is automatically detected though can be changed.
                 ISupportedImageFormat format = new WebPFormat { Quality = 70, };
                 Size size = new Size(width, height);
-                if (context.Request.UserAgent.IndexOf("Chrome/", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                {
+                //if (context.Request.UserAgent.IndexOf("Chrome/", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                //{
                     context.Response.ClearHeaders();
                     context.Response.ClearContent();
 
@@ -82,11 +82,11 @@ namespace gulfsoccer.Handlers
                     {
                         ImageFallback(context, path);
                     }
-                }
-                else
-                {
-                    ImageFallback(context, path);
-                }
+                //}
+                //else
+                //{
+                //    ImageFallback(context, path);
+                //}
             }
         }
 

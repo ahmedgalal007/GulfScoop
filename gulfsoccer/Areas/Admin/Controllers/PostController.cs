@@ -2,6 +2,7 @@
 using gulfsoccer.Areas.Admin.Models.PostViewModels;
 using gulfsoccer.Models;
 using gulfsoccer.Models.gulfsoccer;
+using gulfsoccer.utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -56,7 +57,7 @@ namespace gulfsoccer.Areas.Admin.Controllers
                 newPost.Body = post.body;
                 newPost.Created = post.created;
                 newPost.FeaturedAlbum = 0;
-                // newPost.FeaturedImage = this._db.Medias.Where(I => I.Uri == post.featuredImage).First().Id;
+                newPost.category = this._db.Categories.Where(I => I.name == post.mainCategory).FirstOrDefault().id;
                 newPost.Owner = post.owner;
                 newPost.Title = post.title;
                 newPost.Updated = post.updated;
@@ -69,20 +70,29 @@ namespace gulfsoccer.Areas.Admin.Controllers
             string[] err = new string[] { };
             //try
             //{
-                // TODO: Add insert logic here
-                //UriBuilder urlBuilder = new UriBuilder(Request.Url.AbsoluteUri){
-                //                                Path = Url.Content(post.featuredImage),
-                //                                Query = null,
-                //                            };
-                //Uri uri = urlBuilder.Uri;
-                //string url = urlBuilder.ToString();
-                Media img = new Media { Name = post.title, Localpath = HttpContext.Server.MapPath(post.featuredImage), Alt = post.title, Description = post.title, Type = "image", Uri = post.featuredImage/*HttpContext.Server.MapPath(post.featuredImage) Path.GetFullPath(post.featuredImage)*/ }; ;
-                // First Add and Save the Featured Image
-                //try
-                //{
-                    //  newPost.FeaturedImage = post.featuredImage 
-                    if (this._db.Medias.Where(I => I.Uri == post.featuredImage).ToList().Count() < 1)
+            // TODO: Add insert logic here
+            //UriBuilder urlBuilder = new UriBuilder(Request.Url.AbsoluteUri){
+            //                                Path = Url.Content(post.featuredImage),
+            //                                Query = null,
+            //                            };
+            //Uri uri = urlBuilder.Uri;
+            //string url = urlBuilder.ToString();
+
+            // First Add and Save the Featured Image
+            //try
+            //{
+            //  newPost.FeaturedImage = post.featuredImage 
+            if (String.IsNullOrEmpty(post.description))
+            {
+                newPost.Description = TextConverter.StringToParagraphs(post.body).Count() > 0 ? TextConverter.StringToParagraphs(post.body).First().Substring(0, 156) : "";
+            }
+            else
+            {
+                newPost.Description = post.description;
+            }
+            if (this._db.Medias.Where(I => I.Uri == post.featuredImage).ToList().Count() < 1)
                     {
+                        Media img = new Media { Name = post.title, Localpath = HttpContext.Server.MapPath(post.featuredImage), Alt = post.title, Description = post.title, Type = "image", Uri = post.featuredImage/*HttpContext.Server.MapPath(post.featuredImage) Path.GetFullPath(post.featuredImage)*/ }; 
                         this._db.Medias.Add(img);
                         this._db.SaveChanges();
                         newPost.FeaturedImage = img.Id;

@@ -11,6 +11,7 @@ namespace gulfsoccer.Areas.Admin.Models.PostViewModels
         public string title { get; set; }
 
         public string body { get; set; }
+        public string description { get; set; }
 
         public DateTime created { get; set; }
         public DateTime updated { get; set; }
@@ -21,6 +22,7 @@ namespace gulfsoccer.Areas.Admin.Models.PostViewModels
         public string featuredImage { get; set; }
 
         public string owner { get; set; }
+        public string mainCategory { get; set; }
         public string permalink { get; set; }
     }
 }

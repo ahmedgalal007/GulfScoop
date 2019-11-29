@@ -16,8 +16,7 @@ namespace gulfsoccer.Models.gulfsoccer
 
         public DateTime created { get; set; }
         public DateTime updated { get; set; }
-
-        public List<Category> categories { get; set; }
+        public Category mainCategory { get; set; }
 
         public Media featuredImage { get; set; }
 
@@ -35,8 +34,6 @@ namespace gulfsoccer.Models.gulfsoccer
             model.owner = dbPost.Owner;
             try
             {
-                model.categories = db.Categories.Where(C => db.PostCategories.Where(P => P.PostId == dbPost.Id).Select(PC => PC.CategoryId).Contains(C.id)).ToList();
-                
                 model.featuredImage = dbPost.FeaturedImage > 0 ? db.Medias.Where(I => I.Id == dbPost.FeaturedImage).FirstOrDefault() : new Media();
 
                 var permalink = db.PermaLinks.Where(PL => PL.PostId == dbPost.Id).Select(PL => PL.Link).FirstOrDefault();

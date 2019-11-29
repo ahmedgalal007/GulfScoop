@@ -41,6 +41,7 @@ namespace gulfsoccer.Controllers
             model.id = dbPost.Id;
             model.title = dbPost.Title;
             model.body = dbPost.Body;
+            model.description = dbPost.Description;
             model.created = dbPost.Created;
             model.updated = dbPost.Updated;
             model.owner = dbPost.Owner;
