@@ -67,10 +67,11 @@ namespace gulfsoccer.Handlers
                                 context.Response.ContentType = "image/webp";
                                 context.Response.Buffer = false;
                                 context.Response.BufferOutput = false;
-
-                                outStream.CopyToAsync(context.Response.OutputStream);
                                 context.Response.AppendHeader("Content-type", "image/webp");
-                                context.Response.OutputStream.Flush();
+                                outStream.CopyToAsync(context.Response.OutputStream);
+
+                                context.Response.End();
+                                //outStream.Flush();
                                 
                                 //this.Response.Write(outStream.GetBuffer());
                                 // return new HttpStatusCodeResult(200);

@@ -12,6 +12,7 @@ namespace gulfsoccer
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{file}.webp/{*pathInfo}");
 
             routes.MapRoute(
                 name: "Admin",
@@ -20,13 +21,7 @@ namespace gulfsoccer
                 namespaces: new string[] { "gulfsoccer.Areas.admin.Controllers" }
             );
 
-            
-            //routes.MapRoute(
-            //    name: "Image",
-            //    url: "Img/{*uri}",
-            //    defaults: new { controller = "Img", action = "Index" },
-            //    namespaces: new string[] { "gulfsoccer.Controllers" }
-            //);
+            // routes.Add(new Route("*", new Handlers.SoccerRouteHandler()));
             
             routes.MapRoute(
                 name: "Post",
@@ -46,21 +41,33 @@ namespace gulfsoccer
                url: "tag/{id}",
                defaults: new { controller = "Tag", action = "Index", id = UrlParameter.Optional },
                namespaces: new string[] { "gulfsoccer.Controllers" }
+            );
+
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+            //    namespaces: new string[] { "gulfsoccer.Controllers" }
+            //);
+
+            // Add Custom MVC Route Handler
+            // routes.Add(new Route("{*url}", new Handlers.SoccerRouteHandler()));
+
+            routes.MapRoute(
+               name: "Main",
+               url: "{*url}",
+               defaults: new { controller = "Main", action = "Index", url = UrlParameter.Optional },
+               namespaces: new string[] { "gulfsoccer.Controllers" }
            );
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new string[] { "gulfsoccer.Controllers" }
-            );
+            
 
-            routes.MapRoute(
-                name: "Profile",
-                url: "{slug}",
-                defaults: new { controller = "Post", action = "Index" },
-                namespaces: new string[] { "gulfsoccer.Controllers" }
-            );
+            //routes.MapRoute(
+            //    name: "Profile",
+            //    url: "{slug}",
+            //    defaults: new { controller = "Post", action = "Index" },
+            //    namespaces: new string[] { "gulfsoccer.Controllers" }
+            //);
         }
     }
 }

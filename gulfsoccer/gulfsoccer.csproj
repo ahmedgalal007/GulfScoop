@@ -18,7 +18,7 @@
     <AssemblyName>gulfsoccer</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44351</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
@@ -495,6 +495,7 @@
     <Compile Include="App_Start\RouteConfig.bak.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\Startup.Soccer.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\ApiControllers\PostController.cs" />
@@ -514,6 +515,7 @@
     <Compile Include="Areas\Admin\Models\FileBrowser\ImageSize.cs" />
     <Compile Include="Areas\Admin\Models\FileBrowser\ThumbnailCreator.cs" />
     <Compile Include="Areas\Admin\Models\PostViewModels.cs" />
+    <Compile Include="Plugins\Settings.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -538,6 +540,30 @@
     <Compile Include="Models\PostViewModels.cs" />
     <Compile Include="Models\PostViewModels_Short.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
+    <Compile Include="Plugins\soccer\Controllers\AppRoutesProcessor.cs" />
+    <Compile Include="Plugins\soccer\Controllers\MainController.cs" />
+    <Compile Include="Plugins\soccer\Controllers\Tournaments\Tournament_YearController.cs" />
+    <Compile Include="Plugins\soccer\Controllers\Tournaments\Tournament_Year_SeasonController.cs" />
+    <Compile Include="Plugins\soccer\Controllers\Tournaments\Tournament_Year_Season_WeekController.cs" />
+    <Compile Include="Plugins\soccer\Controllers\Tournaments\Tournament_Year_Season_Week_MatchController.cs" />
+    <Compile Include="Plugins\soccer\Controllers\Tournaments\Tournament_Year_Season_Week_Match_TeamController.cs" />
+    <Compile Include="Plugins\soccer\Controllers\Tournaments\Tournament_Year_Season_Week_Match_Team_FormationController.cs" />
+    <Compile Include="Plugins\soccer\Controllers\Tournaments\Tournament_Year_Season_Week_Match_Team_Formation_PlayerController.cs" />
+    <Compile Include="Plugins\soccer\Controllers\Tournaments\TournamentController.cs" />
+    <Compile Include="Plugins\soccer\database\Transition.cs" />
+    <Compile Include="Plugins\soccer\database\Stadium.cs" />
+    <Compile Include="Plugins\soccer\database\MatchFormation.cs" />
+    <Compile Include="Plugins\soccer\database\Card.cs" />
+    <Compile Include="Plugins\soccer\database\PlayerPosition.cs" />
+    <Compile Include="Plugins\soccer\database\Player.cs" />
+    <Compile Include="Plugins\soccer\database\SeasonTeam.cs" />
+    <Compile Include="Plugins\soccer\database\Trophy.cs" />
+    <Compile Include="Plugins\soccer\database\Match.cs" />
+    <Compile Include="Plugins\soccer\database\SeasonWeek.cs" />
+    <Compile Include="Plugins\soccer\database\Season.cs" />
+    <Compile Include="Plugins\soccer\database\ApplicationDbContext.cs" />
+    <Compile Include="Plugins\soccer\database\Club.cs" />
+    <Compile Include="Plugins\soccer\database\Tournament.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -5569,6 +5595,14 @@
     <Content Include="Scripts\kendo\2019.3.1023\cultures\kendo.culture.aa-ET.min.js.map" />
     <Content Include="Scripts\kendo\2019.3.1023\cultures\kendo.culture.aa-ER.min.js.map" />
     <Content Include="Scripts\kendo\2019.3.1023\cultures\kendo.culture.aa-DJ.min.js.map" />
+    <Content Include="Views\Soccer\Tournament.cshtml" />
+    <Content Include="Views\Soccer\Tournament_year_season_Week_Match_Team_Formation_Player.cshtml" />
+    <Content Include="Views\Soccer\Tournament_year.cshtml" />
+    <Content Include="Views\Soccer\Tournament_year_season.cshtml" />
+    <Content Include="Views\Soccer\Tournament_year_season_Week.cshtml" />
+    <Content Include="Views\Soccer\Tournament_year_season_Week_Match.cshtml" />
+    <Content Include="Views\Soccer\Tournament_year_season_Week_Match_Team.cshtml" />
+    <Content Include="Views\Soccer\Tournament_year_season_Week_Match_Team_Formation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -5656,7 +5690,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>64906</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44351/</IISUrl>
+          <IISUrl>http://localhost/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
