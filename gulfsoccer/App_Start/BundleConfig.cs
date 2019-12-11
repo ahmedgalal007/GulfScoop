@@ -52,8 +52,9 @@ namespace gulfsoccer
 
             bundles.Add(new StyleBundle("~/Content/kendo/css")
                       .Include("~/Content/kendo/2019.2.619/kendo.common.min.css", new CssRewriteUrlTransform())
-                      .Include("~/Content/kendo/2019.2.619/kendo.material.min.css", new CssRewriteUrlTransform())
-                      .Include("~/Content/kendo/2019.2.619/kendo.material.mobile.min.css", new CssRewriteUrlTransform())
+                      // .Include("~/Content/kendo/2019.2.619/kendo.material.min.css", new CssRewriteUrlTransform())
+                      // .Include("~/Content/kendo/2019.2.619/kendo.material.mobile.min.css", new CssRewriteUrlTransform())
+                      .Include("~/Content/kendo/2019.2.619/kendo.bootstrap.min.css", new CssRewriteUrlTransform())
                       //.Include("~/Content/kendo/2019.2.619/kendo.default.min.css", new CssRewriteUrlTransform())
                       //.Include("~/Content/kendo/2019.2.619/kendo.default.mobile.min.css", new CssRewriteUrlTransform())
                       //.Include("~/Content/kendo/2019.2.619/kendo.rtl.min.css", new CssRewriteUrlTransform())

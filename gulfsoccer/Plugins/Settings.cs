@@ -9,7 +9,7 @@ namespace gulfsoccer
 {
     public class Settings: IDisposable
     {
-        private static ApplicationDbContext _db = new ApplicationDbContext();
+        public static ApplicationDbContext _db = new ApplicationDbContext();
         private static Settings _settings;
         public static List<Tournament> Tournaments;
         public static List<Club> Clubs;

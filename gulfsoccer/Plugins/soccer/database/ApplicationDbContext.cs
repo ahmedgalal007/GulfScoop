@@ -12,13 +12,20 @@ namespace gulfsoccer.Models
     public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Card> Cards { get; set; }
+        public DbSet<City> Cities { get; set; }
         public DbSet<Club> Clubs { get; set; }
+        public DbSet<Continent> Continents { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<CountryState> CountryStates { get; set; }
         public DbSet<Match> Matches { get; set; }
         public DbSet<MatchFormation> MatchFormations { get; set; }
+        public DbSet<MatchTeamState> MatchTeamStates { get; set; }
+        public DbSet<Organization> Organizations { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<PlayerPosition> PlayerPositions { get; set; }
         public DbSet<Season> Seasons { get; set; }
         public DbSet<SeasonTeam> SeasonTeams { get; set; }
+        public DbSet<SeasonTeamPlayer> SeasonTeamPlayers { get; set; }
         public DbSet<SeasonWeek> SeasonWeeks { get; set; }
         public DbSet<Stadium> Stadiums { get; set; }
         public DbSet<Tournament> Tournaments { get; set; }

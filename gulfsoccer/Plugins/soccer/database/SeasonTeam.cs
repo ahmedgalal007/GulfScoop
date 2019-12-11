@@ -9,5 +9,11 @@ namespace DAL.Database
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int SeasonId { get; set; }
+        public virtual Season Season { get; set; }
+        public int ClubId { get; set; }
+        public virtual Club Club { get; set; }
+
+
     }
 }

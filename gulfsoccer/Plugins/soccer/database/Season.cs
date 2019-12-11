@@ -9,5 +9,9 @@ namespace DAL.Database
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int TournamentYearId { get; set; }
+        public virtual TournamentYear TournamentYear { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
     }
 }

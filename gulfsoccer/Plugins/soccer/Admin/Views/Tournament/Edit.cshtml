@@ -1,0 +1,33 @@
+﻿@using DAL.Database;
+
+@model Tournament
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1>Edit Tournament</h1>
+</div>
+
+<form method="post" action="/soccer/admin/tournament/edit" enctype="multipart/form-data">
+    <input type="hidden" name="_method" value="put" />
+    <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input value="@Model.Name" type="text" class="form-control" id="Name" name="Name" aria-describedby="NameHelp" placeholder="Tournament Name">
+        <small id="NameHelp" class="form-text text-muted">Enter the Tournament name.</small>
+    </div>
+    <div class="form-group">
+        <label for="Place">Place</label>
+        <input value="@Model.Place" type="text" class="form-control" id="Place" name="Place" aria-describedby="PlaceHelp" placeholder="Tournament Name">
+        <small id="PlaceHelp" class="form-text text-muted">Enter the Place name.</small>
+    </div>
+    <div class="form-group">
+        <label for="Organizer">Organizer</label>
+        <input value="@Model.Organizer" type="text" class="form-control" id="Organizer" name="Organizer" aria-describedby="OrganizerHelp" placeholder="Organizer Name">
+        <small id="OrganizerHelp" class="form-text text-muted">Enter the Organizer name.</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

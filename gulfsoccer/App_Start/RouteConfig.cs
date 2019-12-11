@@ -7,10 +7,12 @@ using System.Web.Routing;
 
 namespace gulfsoccer
 {
-    public class RouteConfig
+    public partial class RouteConfig
     {
+        public static RouteCollection _routes;
         public static void RegisterRoutes(RouteCollection routes)
         {
+            _routes = routes;
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("{file}.webp/{*pathInfo}");
 
@@ -68,6 +70,11 @@ namespace gulfsoccer
             //    defaults: new { controller = "Post", action = "Index" },
             //    namespaces: new string[] { "gulfsoccer.Controllers" }
             //);
+        }
+
+        public static void AddRoute(Route newRoute)
+        {
+            _routes.Add(newRoute);
         }
     }
 }

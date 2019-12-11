@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using DAL.Database;
@@ -48,6 +49,9 @@ namespace gulfsoccer.Models
             modelBuilder.Entity<PostCategory>().HasKey(PC => new { PC.PostId, PC.CategoryId });
             modelBuilder.Entity<PostTag>().HasKey(PT => new { PT.PostId, PT.TagId });
             modelBuilder.Entity<AlbumMedia>().HasKey(AM => new { AM.AlbumId, AM.MediaId});
+
+            // Solve the problem of cascade Delete for multible childs
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
         }
     }
 }

@@ -1,0 +1,53 @@
+﻿@using DAL.Database;
+
+@model List<Tournament>
+
+    @{
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    }
+
+    <div>
+        <h1>Manage Tournaments</h1>
+    </div>
+    <div class="table-responsive">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend" id="button-addon3">
+                <a class="btn btn-outline-secondary" type="button" href="@Url.Action("Create", "Tournament", new {Area = "Soccer/Admin" })"><i class="fas fa-plus"></i></a>
+                <button class="btn btn-outline-secondary" type="button">Button</button>
+            </div>
+            <input type="text" class="form-control" placeholder="" aria-label="Example text with two button addons" aria-describedby="button-addon3">
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Organization</th>
+                    <th scope="col">Place</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int i = 1;}
+                @foreach (Tournament item in Model)
+                {
+                    <tr>
+                        <th scope="row">@i</th>
+                        <td>@item.Name</td>
+                        <td>@item.Organizer</td>
+                        <td>@item.Place</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a type="button" class="btn btn-default" href="@Url.Action("Details", "Tournament", new {Area = "Soccer/Admin", Id = item.Id })"><i class="fas fa-eye"></i></a>
+                                <a type="button" class="btn btn-default" href="@Url.Action("Edit", "Tournament", new {Area = "Soccer/Admin", Id = item.Id })"><i class="fas fa-edit"></i></a>
+                                <a type="button" class="btn btn-default text-danger" href="@Url.Action("Delete", "Tournament", new {Area = "Soccer/Admin", Id = item.Id })" onclick="return confirm('Are you sure you want to remove  @item.Name from list ?');"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    i++;
+                }
+
+            </tbody>
+        </table>
+    </div>
+

@@ -40,7 +40,7 @@ namespace gulfsoccer.Plugins.soccer.Controllers
         {
             if (!String.IsNullOrEmpty(url))
             {
-                string prefix = "../soccer/"; int TempNumber = 0;
+                string prefix = "../soccer/"; 
                 string[] Params = url.TrimStart('/').TrimEnd('/').Split('/');
                 ControllerRedirectContext result = new ControllerRedirectContext();
                 if (Params.Length > 0)
