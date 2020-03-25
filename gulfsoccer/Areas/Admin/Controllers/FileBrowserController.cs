@@ -1,21 +1,13 @@
-﻿using gulfsoccer.Areas.Admin.FileBrowser.Models;
-using Kendo.Mvc.UI;
-using System;
-using System.Collections.Generic;
+﻿using Kendo.Mvc.UI;
 using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace gulfsoccer.Areas.Admin.Controllers
 {
-
     public class FileBrowserController : EditorFileBrowserController
     {
         private const string contentFolderRoot = "~/Content/";
         private const string prettyName = "Images/";
         private static readonly string[] foldersToCopy = new[] { "~/Content/shared/" };
-
 
         /// <summary>
         /// Gets the base paths from which content will be served.
@@ -75,7 +67,6 @@ namespace gulfsoccer.Areas.Admin.Controllers
             }
         }
     }
-
 
     //public class FileBrowserController : Controller
     //{
@@ -253,7 +244,6 @@ namespace gulfsoccer.Areas.Admin.Controllers
 
     //        throw new HttpException(403, "Forbidden");
     //    }
-
 
     //    public virtual bool AuthorizeUpload(string path, HttpPostedFileBase file)
     //    {

@@ -63,7 +63,6 @@
                         <div id="dialog"></div>
                         <div id="add-product" class="demo-section k-content">
                             <div id="thumbnail" width="100%">
-
                             </div>
                             <input type="hidden" id="featuredImage" name="featuredImage" />
                             <button id="changeImage" class="k-primary">Change Image</button>
@@ -85,7 +84,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2" for="tags" id="tags_label">tags</label>
                     <div class="col-md-12">
-                        <input type="hidden" id="selectedTags" name="tags"/>
+                        <input type="hidden" id="selectedTags" name="tags" />
                         <select id="tags" name="tags"></select>
                     </div>
                     <script id="noDataTemplate" type="text/x-kendo-tmpl">
@@ -143,16 +142,11 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <hr />
-
-
     </div>
 </form>
 @*}*@
-
-
 
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -160,9 +154,9 @@
 
 @section Scripts {
     @*@Scripts.Render("~/bundles/jqueryval")*@
-    <script type="text/javascript" src="~/Scripts/site/app/_shared/CheckTreeView.js"></script>
-    <script type="text/javascript" src="~/Scripts/site/app/_shared/MultiSelect.js"></script>
-    <script type="text/javascript" src="~/Scripts/site/app/admin.post.create.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/js/_shared/CheckTreeView.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/js/_shared/MultiSelect.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/js/admin/post/admin.post.create.js"></script>
     <script>
         $("#owner").val("@User.Identity.Name");
     </script>

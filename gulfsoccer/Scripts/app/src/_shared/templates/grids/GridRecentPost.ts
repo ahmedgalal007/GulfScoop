@@ -16,14 +16,12 @@
 //    </section>
 //    < !--Section: Content-- >
 
-
-
 export class GridRecentPost extends BaseGrid {
     constructor() {
         super();
     }
 
-    public render(container: JQuery, d: IGridData): void{
+    public render(container: JQuery, d: IGridData): void {
         // this.card = d.card;
         this.grid = $('<section/>').addClass('dark-grey-text text-center');
         this.gridHeader = $('<h2/>').addClass('font-weight-bold mb-4 pb-2').text(d.headerText);
@@ -43,6 +41,3 @@ export class GridRecentPost extends BaseGrid {
         container.append(this.grid);
     }
 }
-
-
-

@@ -6,14 +6,14 @@
  * Released under the MIT license
  * https://github.com/fians/Waves/blob/master/LICENSE */
 
-@mixin waves-transition($transition){
+@mixin waves-transition($transition) {
     -webkit-transition: $transition;
     -moz-transition: $transition;
     -o-transition: $transition;
     transition: $transition;
 }
 
-@mixin waves-transform($string){
+@mixin waves-transform($string) {
     -webkit-transform: $string;
     -moz-transform: $string;
     -ms-transform: $string;
@@ -21,7 +21,7 @@
     transform: $string;
 }
 
-@mixin waves-box-shadow($shadow){
+@mixin waves-box-shadow($shadow) {
     -webkit-box-shadow: $shadow;
     box-shadow: $shadow;
 }
@@ -41,8 +41,8 @@
         border-radius: 50%;
         width: 100px;
         height: 100px;
-        margin-top:-50px;
-        margin-left:-50px;
+        margin-top: -50px;
+        margin-left: -50px;
         opacity: 0;
         background: rgba(0,0,0,0.2);
         $gradient: rgba(0,0,0,0.2) 0,rgba(0,0,0,.3) 40%,rgba(0,0,0,.4) 50%,rgba(0,0,0,.5) 60%,rgba(255,255,255,0) 70%;
@@ -99,7 +99,7 @@
     color: inherit;
     background-color: rgba(0, 0, 0, 0);
     font-size: 1em;
-    line-height:1em;
+    line-height: 1em;
     text-align: center;
     text-decoration: none;
     z-index: 1;
@@ -156,8 +156,8 @@
 }
 
 a {
-  &.waves-effect,
-  &.waves-light {
-    display:inline-block;
-  }
- }
+    &.waves-effect,
+    &.waves-light {
+        display: inline-block;
+    }
+}

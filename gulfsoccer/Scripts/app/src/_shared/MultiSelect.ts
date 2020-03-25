@@ -1,26 +1,25 @@
-﻿/// <reference path="../../../typings/require/require.d.ts" />
-/// <reference path="../../../typings/jquery/jquery.d.ts" />
+﻿///// <reference path="../../../typings/require/require.d.ts" />
+///// <reference path="../../../typings/jquery/jquery.d.ts" />
 
 /// <reference path="../../../typings/kendo/kendo.all.d.ts" />
 /// <amd-dependency path="Scripts/app/lib/kendo.ui.core.min" >
-
 
 // import $ = require("jquery");
 // import kendo = require("Scripts/app/lib/kendo.ui.core.min");
 
 class MultiSelect {
-    public constructor(selector: string, returnElementSelector: string, serviceUrl: string, data: number[], noDataTemplateSelector:string, onCheck: Function) {
+    public constructor(selector: string, returnElementSelector: string, serviceUrl: string, data: number[], noDataTemplateSelector: string, onCheck: Function) {
         var options =
         {
             valuePrimitive: true,
             autoBind: false,
-            change: (e:any) => {
-                if (e) {}
+            change: (e: any) => {
+                if (e) { }
                 // console.log("Change");
                 $(returnElementSelector).val($(selector).data("kendoMultiSelect").value().join(","));
             },
             filtering: function (e: any) {
-                if (e) {}
+                if (e) { }
                 // console.log(e);
                 if ($(selector).data("kendoMultiSelect").input.val() != "") {
                     $.ajax({
@@ -32,7 +31,9 @@ class MultiSelect {
 
                             MS.dataSource.data().forEach(function (item: any) {
                                 if (item && item["ID"]) {
-                                    var selectedTags = $("#selectedTags").val().split(',');
+                                    var selectedTags = (<string>$("#selectedTags").val()).split(',').map(function (item) {
+                                        return parseInt(item, 10);
+                                    });
                                     var ItemFound;
                                     for (var t = 0; t < selectedTags.length; t++) {
                                         var stringPart = selectedTags[t];
@@ -56,7 +57,6 @@ class MultiSelect {
                                         $(selector).data("kendoMultiSelect").dataSource.add({ ID: item["ID"], Name: item["Name"] });
                                 }
                             });
-
                         },
                         dataType: "json",
                         contentType: "application/x-www-form-urlencoded",
@@ -66,7 +66,6 @@ class MultiSelect {
                 } else {
                     // $("#tags").data("kendoMultiSelect").dataSource.data({});
                 }
-
             },
             dataSource: {
                 batch: true,
@@ -88,8 +87,7 @@ class MultiSelect {
                         type: "post",
                         url: serviceUrl + "/create"
                     },
-                    parameterMap: function (options:any, operation:any) {
-
+                    parameterMap: function (options: any, operation: any) {
                         if (operation !== "read") {
                             console.log(operation);
                             console.log(kendo.stringify(options));
@@ -103,7 +101,6 @@ class MultiSelect {
                         type: "post",
                         url: serviceUrl + "/ServerFiltering_GetProducts",
                     },
-
                 },
             },
             dataTextField: "Name",
@@ -112,9 +109,8 @@ class MultiSelect {
             noDataTemplate: $(noDataTemplateSelector).html(),
             placeholder: "",  /*"Select ..."*/
             oncheck: onCheck,
-
         };
-        if (data) {}
+        if (data) { }
 
         $(document).ready(() => {
             $(selector).kendoMultiSelect(options);
@@ -125,10 +121,6 @@ class MultiSelect {
                 multiselect.trigger("change");
             });
         });
-        
-
-        
-
     }
 }
 

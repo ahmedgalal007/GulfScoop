@@ -1,13 +1,13 @@
 ﻿import { BaseGrid, IGridData } from "_shared/templates/Abstract"
 // <div class="container mt-5" >
-// 
-// 
+//
+//
 //     <!--Section: Content-- >
 //     <section class="text-center" >
-// 
+//
 //         <!--Section heading-- >
 //         <h3 class="font-weight-bold mb-5" > Recent Blog Posts < /h3>
-// 
+//
 //         < !--Grid row-- >
 //         <div class="row" >
 //              < !-- Render Grid column-- >
@@ -29,7 +29,7 @@ export class GridCardCategoryTitle extends BaseGrid {
     //     if (d.gridHeaderLink != null && d.gridHeaderLink != "" && d.gridHeaderLink.length > 0) {
     //         this.gridHeader.wrap($('<a>').attr("href", d.gridHeaderLink));
     //     }
-    // 
+    //
     //     // this.gridParagraph = $('<p>').addClass('text-center mx-auto w-responsive mb-5').text(paragraphTxt);
     //     this.gridRow = $('<div>').addClass('row');
     //     d.cards.forEach((d) => {
@@ -42,7 +42,7 @@ export class GridCardCategoryTitle extends BaseGrid {
     //     return this.grid;
     // }
 
-    public render(container:JQuery, d: IGridData): void {
+    public render(container: JQuery, d: IGridData): void {
         container.addClass('container mt-5');
         this.grid = $('<section/>');
         this.grid.addClass('text-center');
@@ -61,6 +61,3 @@ export class GridCardCategoryTitle extends BaseGrid {
         container.append(this.grid);
     }
 }
-
-
-

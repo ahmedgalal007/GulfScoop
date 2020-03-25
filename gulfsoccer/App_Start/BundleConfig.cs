@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace gulfsoccer
 {
@@ -12,7 +11,7 @@ namespace gulfsoccer
             bundles.Add(new ScriptBundle("~/bundles/post").Include("~/Scripts/lazysizes.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                         "~/Scripts/modernizr-*","~/Scripts/jquery-{version}.min.js", "~/Scripts/lazysizes.min.js"));
+                         "~/Scripts/modernizr-*", "~/Scripts/jquery-{version}.min.js", "~/Scripts/lazysizes.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -31,7 +30,6 @@ namespace gulfsoccer
                       // "~/Scripts/kendo/2019.2.619/kendo.timezones.min.js",
                       "~/Scripts/kendo/2019.2.619/kendo.aspnetmvc.min.js"
             ));
-
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css"
@@ -59,7 +57,6 @@ namespace gulfsoccer
                       //.Include("~/Content/kendo/2019.2.619/kendo.rtl.min.css", new CssRewriteUrlTransform())
                       );
 
-
             bundles.Add(new ScriptBundle("~/bundles/mdb")
                 .Include("~/Scripts/mdb/js/jquery.min.js", "~/Scripts/mdb/js/popper.min.js", "~/Scripts/bootstrap.min.js", "~/Scripts/mdb/js/mdb.min.js", "~/Scripts/site/app/app.js")
             );
@@ -67,8 +64,6 @@ namespace gulfsoccer
             bundles.Add(new ScriptBundle("~/bundles/mdbpro")
                .Include("~/Scripts/mdbpro/js/jquery.min.js", "~/Scripts/mdbpro/js/popper.min.js", "~/Scripts/bootstrap.min.js", "~/Scripts/mdbpro/js/mdb.min.js", "~/Scripts/site/app/app.js")
            );
-
-
 
             bundles.IgnoreList.Clear();
         }

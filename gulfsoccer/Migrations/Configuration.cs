@@ -1,10 +1,7 @@
 namespace gulfsoccer.Migrations
 {
     using DAL.Database;
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<gulfsoccer.Models.ApplicationDbContext>
     {
@@ -18,11 +15,11 @@ namespace gulfsoccer.Migrations
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
             // #ff4444,#CC0000 - #ffbb33,#FF8800 - #00C851,#007E33 - #33b5e5,#0099CC - #2BBBAD,#00695c - #4285F4,#0d47a1 - #aa66cc,#9933CC
             // #2E2E2E,#212121 - #4B515D,#3E4551
-            context.Categories.AddOrUpdate(new Category { id = 1, name = "UnCategorized", ParentId = null, InMenu = false, Color= "#ff4444" });
+            context.Categories.AddOrUpdate(new Category { id = 1, name = "UnCategorized", ParentId = null, InMenu = false, Color = "#ff4444" });
             context.Categories.AddOrUpdate(new Category { id = 2, name = "Politics", ParentId = null, InMenu = false, Color = "#ffbb33" });
             context.Categories.AddOrUpdate(new Category { id = 3, name = "Egyptology", ParentId = null, InMenu = false, Color = "#00C851" });
             context.Categories.AddOrUpdate(new Category { id = 4, name = "Technology", ParentId = null, InMenu = false, Color = "#33b5e5" });

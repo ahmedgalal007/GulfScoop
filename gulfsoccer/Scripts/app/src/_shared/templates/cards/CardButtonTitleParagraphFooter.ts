@@ -1,12 +1,12 @@
-﻿/// <reference path="../../../../../typings/jquery/jquery.d.ts" />
-/// <reference path="../Abstract.ts" />
+﻿///// <reference path="../../../../../typings/jquery/jquery.d.ts" />
+///// <reference path="../Abstract.ts" />
 
+//import { BaseCard, ICardData } from "_shared/templates/Abstract";
 import { BaseCard, ICardData } from "_shared/templates/Abstract";
-
 //
 // <!--Card -->
 // <div class="card" >
-// 
+//
 //     <!--Card image-- >
 //     <div class="view overlay" >
 //         <img class="card-img-top" src = "https://mdbootstrap.com/img/Photos/Others/food.jpg" alt = "Card image cap" >
@@ -14,10 +14,10 @@ import { BaseCard, ICardData } from "_shared/templates/Abstract";
 //             <div class="mask rgba-white-slight" > </div>
 //         < /a>
 //     </div>
-// 
+//
 //     < !--Button -->
 //     <a class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3" > <i class="fas fa-chevron-right pl-1" > </i></a >
-// 
+//
 //     <!--Card content-- >
 //     <div class="card-body" >
 //         <!--Title -->
@@ -26,7 +26,7 @@ import { BaseCard, ICardData } from "_shared/templates/Abstract";
 //         <!--Text -->
 //         <p class="card-text" > Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 //     </div>
-// 
+//
 //     <!--Card footer-- >
 //     <div class="rounded-bottom mdb-color lighten-3 text-center pt-3" >
 //         <ul class="list-unstyled list-inline font-small" >
@@ -36,13 +36,12 @@ import { BaseCard, ICardData } from "_shared/templates/Abstract";
 //             < li class="list-inline-item" > <a href="#" class="white-text" > <i class="fab fa-twitter pr-1" > </i>5</a > </li>
 //         </ul>
 //     </div>
-// 
+//
 // < /div>
 // < !--Card -->
 //
 
 export class CardButtonTitleParagraphFooter extends BaseCard {
-    
     constructor() {
         super();
         // return this.createCard(d);
@@ -56,13 +55,13 @@ export class CardButtonTitleParagraphFooter extends BaseCard {
     //     this.card_button = $('<a>').addClass('btn-floating btn-action ml-auto mr-4 mdb-color lighten-3').attr("href", d.articleLink);
     //     this.card_button_icon = $('<i>').addClass('fas fa-chevron-right pl-1');
     //     this.card_body = $('div').addClass('card-body');
-    //     
+    //
     //     this.card_title = $('<h4>').addClass('card-title').text(d.title);
     //     this.card_excerpt = $('<p>').addClass('card-text').text(d.excerpt);
-    // 
+    //
     //     this.card_footer = $('<div>').addClass('rounded-bottom mdb-color lighten-3 text-center pt-3');
     //     this.card_footer_list = $('<ul>').addClass('list-unstyled list-inline font-small');
-    //     
+    //
     //     this.card_featuredImage.append(this.card_featuredImage_img);
     //     this.card_featuredImage.append(this.card_featuredImage_imgMask);
     //     this.cardElem.append(this.card_featuredImage);
@@ -74,12 +73,12 @@ export class CardButtonTitleParagraphFooter extends BaseCard {
     //         this.card_body.addClass('elegant-color white-text rounded-bottom');
     //     }
     //     this.cardElem.append(this.card_body);
-    // 
+    //
     //     this.card_footer_list.append($('<li>').addClass('list-inline-item pr-2 white-text').html('<i class="far fa-clock pr-1" > </i>'+ d.lastUpdated));
     //     this.card_footer_list.append($('<li>').addClass('list-inline-item pr-2').html('<a href="#" class="white-text" > <i class="far fa-comments pr-1" > </i>12</a >'));
     //     this.card_footer_list.append($('<li>').addClass('list-inline-item pr-2').html('<a href="#" class="white-text" > <i class="fab fa-facebook-f pr-1" > </i>21</a >'));
     //     this.card_footer_list.append($('<li>').addClass('list-inline-item').html('<a href="#" class="white-text" > <i class="fab fa-twitter pr-1" > </i>5</a >'));
-    // 
+    //
     //     this.card_footer.append(this.card_footer_list);
     //     this.cardElem.append(this.card_footer);
     //     return this.cardElem;
@@ -126,25 +125,21 @@ export class CardButtonTitleParagraphFooter extends BaseCard {
         this.card_footer_list = $('<ul/>');
         this.card_footer_list.addClass('list-unstyled list-inline font-small');
 
-        this.card_footer_list.append($('<li/>').addClass('list-inline-item pr-2 white-text').html('<i class="far fa-clock pr-1" > </i>'+ d.lastUpdated));
+        this.card_footer_list.append($('<li/>').addClass('list-inline-item pr-2 white-text').html('<i class="far fa-clock pr-1" > </i>' + d.lastUpdated));
         this.card_footer_list.append($('<li/>').addClass('list-inline-item pr-2').html('<a href="#" class="white-text" > <i class="far fa-comments pr-1" > </i>12</a >'));
         this.card_footer_list.append($('<li/>').addClass('list-inline-item pr-2').html('<a href="#" class="white-text" > <i class="fab fa-facebook-f pr-1" > </i>21</a >'));
         this.card_footer_list.append($('<li/>').addClass('list-inline-item').html('<a href="#" class="white-text" > <i class="fab fa-twitter pr-1" > </i>5</a >'));
-     
 
         //this.card_readMore = $('<a/>');
         //this.card_readMore.addClass('black-text d-flex justify-content-end');
         //this.card_readMore.attr('href', d.articleLink);
         //this.card_readMore.append($('<h5>' + d.readMoreText + ' <i class="fas fa-angle-double-right"> </i></h5>'));
 
-
-
         ///Render ////////////////////////////////////////////////
         this.card_featuredImage.append(this.card_featuredImage_img);
         this.card_featuredImage.append(this.card_featuredImage_imgMask);
 
         this.card_button.append(this.card_button_icon);
-        
 
         // this.card_body.append(this.card_body_socialbutton);
         this.card_body.append(this.card_title);

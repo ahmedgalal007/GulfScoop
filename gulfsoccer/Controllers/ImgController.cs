@@ -1,14 +1,11 @@
-﻿using gulfsoccer.Models;
-using ImageProcessor;
+﻿using ImageProcessor;
 using ImageProcessor.Imaging.Formats;
 using ImageProcessor.Plugins.WebP.Imaging.Formats;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace gulfsoccer.Controllers
@@ -17,10 +14,10 @@ namespace gulfsoccer.Controllers
     {
         // GET: Category/Id
         // GET: Img
-        [OutputCache(Duration = 86400, VaryByParam = "Uri",Location =System.Web.UI.OutputCacheLocation.Server)]
+        [OutputCache(Duration = 86400, VaryByParam = "Uri", Location = System.Web.UI.OutputCacheLocation.Server)]
         public async Task<ActionResult> Index(string Uri)
         {
-            if(Uri.EndsWith(".webp", StringComparison.InvariantCultureIgnoreCase))
+            if (Uri.EndsWith(".webp", StringComparison.InvariantCultureIgnoreCase))
             {
                 Uri = Uri.TrimEnd(".webp".ToCharArray());
             }
@@ -40,7 +37,7 @@ namespace gulfsoccer.Controllers
 
             byte[] photoBytes = System.IO.File.ReadAllBytes(file);
             // Format is automatically detected though can be changed.
-            ISupportedImageFormat format = new WebPFormat { Quality = 70,  };
+            ISupportedImageFormat format = new WebPFormat { Quality = 70, };
             Size size = new Size(width, height);
             using (MemoryStream inStream = new MemoryStream(photoBytes))
             {

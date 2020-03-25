@@ -1,5 +1,4 @@
-﻿
-        $(document).ready(function () {
+﻿        $(document).ready(function () {
             var cardTemplate = $('#card-template').html();
             var container = $("#cards-container");
             $.get("/Home/getLatestPosts/", { "count": 3, "skip": 0 }, function (data) {

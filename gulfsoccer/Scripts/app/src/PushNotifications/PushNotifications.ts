@@ -1,5 +1,4 @@
-﻿
-//let pushServiceWorkerRegistration;
+﻿//let pushServiceWorkerRegistration;
 
 //function registerPushServiceWorker() {
 //    navigator.serviceWorker.register('/scripts/service-workers/push-service-worker.js',

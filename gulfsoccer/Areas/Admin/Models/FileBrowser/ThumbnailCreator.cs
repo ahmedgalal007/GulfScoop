@@ -1,11 +1,11 @@
 ﻿namespace gulfsoccer.Areas.Admin.FileBrowser.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Drawing.Imaging;
     using System.Drawing.Drawing2D;
+    using System.Drawing.Imaging;
     using System.IO;
-    using System;
 
     public class ThumbnailCreator
     {
@@ -73,7 +73,6 @@
                 graphics.DrawImage(source, 0, 0, destination.Width, destination.Height);
             }
         }
-
 
         private Image FixedSize(Image imgPhoto, int Width, int Height, bool needToFill)
         {

@@ -1,9 +1,5 @@
-﻿using gulfsoccer.Areas.Admin.FileBrowser.Models;
-using Kendo.Mvc.UI;
-using System;
-using System.Collections.Generic;
+﻿using Kendo.Mvc.UI;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -16,7 +12,6 @@ namespace gulfsoccer.Areas.Admin.Controllers
         private const string prettyName = "Images/";
         private static readonly string[] foldersToCopy = new[] { "~/Content/shared/" };
 
-
         /// <summary>
         /// Gets the base paths from which content will be served.
         /// </summary>
@@ -27,6 +22,7 @@ namespace gulfsoccer.Areas.Admin.Controllers
                 return CreateUserFolder();
             }
         }
+
         public override ActionResult Thumbnail(string path)
         {
             return base.Thumbnail(path);
@@ -36,6 +32,7 @@ namespace gulfsoccer.Areas.Admin.Controllers
         {
             return base.Upload(path, file);
         }
+
         private string CreateUserFolder()
         {
             var virtualPath = Path.Combine(contentFolderRoot, "UserFiles", prettyName);
@@ -193,7 +190,6 @@ namespace gulfsoccer.Areas.Admin.Controllers
     //        throw new HttpException(403, "Forbidden");
     //    }
 
-
     //    public virtual bool AuthorizeThumbnail(string path)
     //    {
     //        return CanAccess(path);
@@ -333,7 +329,6 @@ namespace gulfsoccer.Areas.Admin.Controllers
 
     //        throw new HttpException(403, "Forbidden");
     //    }
-
 
     //    public virtual bool AuthorizeUpload(string path, HttpPostedFileBase file)
     //    {

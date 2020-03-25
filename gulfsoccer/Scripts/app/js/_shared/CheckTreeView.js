@@ -1,19 +1,10 @@
-/// <reference path="../../../typings/require/require.d.ts" />
-/// <reference path="../../../typings/jquery/jquery.d.ts" />
-/// <reference path="../../../typings/kendo/kendo.all.d.ts" />
-/// <amd-dependency path="Scripts/app/lib/kendo.ui.core.min" >
-// import $ = require("jquery");
-// import kendo = require("Scripts/app/lib/kendo.ui.core.min");
-// import { kendoTreeView } from "../../../kendo/2019.2.619/kendo.treeview.min";
-var CheckTreeView = /** @class */ (function () {
-    function CheckTreeView(selector, serviceUrl, data, onCheck) {
-        var _this = this;
+class CheckTreeView {
+    constructor(selector, serviceUrl, data, onCheck) {
         this._checkedNodes = [];
-        this.onCheck = function () {
-            // console.log(this._selector);
-            _this._checkedNodes = Array();
-            CheckTreeView.checkedNodeIds($(_this._selector).data("kendoTreeView").dataSource.view(), _this._checkedNodes);
-            _this._onCheck(_this._checkedNodes);
+        this.onCheck = () => {
+            this._checkedNodes = Array();
+            CheckTreeView.checkedNodeIds($(this._selector).data("kendoTreeView").dataSource.view(), this._checkedNodes);
+            this._onCheck(this._checkedNodes);
         };
         this._selector = selector;
         this._serviceUrl = serviceUrl;
@@ -21,30 +12,28 @@ var CheckTreeView = /** @class */ (function () {
             schema: {
                 model: {
                     hasChildren: "hasChildren",
-                    id: "id"
-                }
+                    id: "id",
+                },
             },
             transport: {
                 read: {
                     dataType: "json",
-                    url: this._serviceUrl
-                }
-            }
+                    url: this._serviceUrl,
+                },
+            },
         });
         $(selector).kendoTreeView({
             check: this.onCheck,
             loadOnDemand: false,
-            //ExpandAll:true,
             checkboxes: {
-                checkChildren: false
+                checkChildren: false,
             },
             dataSource: this._homogeneous,
             dataTextField: "Name",
             dataBound: function (e) {
-                // Populate Treeview with Intial Values
                 var treeview = e.sender;
                 if (treeview.dataSource.data().length > 0) {
-                    data.forEach(function (d) {
+                    data.forEach(d => {
                         var getitem = treeview.dataSource.get(d);
                         if (getitem && treeview.findByUid(getitem.uid)) {
                             var selectitem = treeview.findByUid(getitem.uid);
@@ -58,8 +47,8 @@ var CheckTreeView = /** @class */ (function () {
         });
         this._onCheck = onCheck;
     }
-    CheckTreeView.checkedNodeIds = function (nodes, checkedNodes) {
-        nodes.forEach(function (node) {
+    static checkedNodeIds(nodes, checkedNodes) {
+        nodes.forEach((node) => {
             if (node.checked) {
                 checkedNodes.push(node.id);
             }
@@ -67,8 +56,6 @@ var CheckTreeView = /** @class */ (function () {
                 CheckTreeView.checkedNodeIds(node.children.view(), checkedNodes);
             }
         });
-    };
-    return CheckTreeView;
-}());
-// export default CheckTreeView;
+    }
+}
 //# sourceMappingURL=CheckTreeView.js.map

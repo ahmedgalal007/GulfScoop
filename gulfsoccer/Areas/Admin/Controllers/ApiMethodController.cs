@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
 namespace gulfsoccer.Areas.Admin.Controllers
 {
-
     public class ApiMethodController : ApiController
     {
         public IEnumerable<HelpMethod> GetMethods()
@@ -16,7 +12,7 @@ namespace gulfsoccer.Areas.Admin.Controllers
             // get the IApiExplorer registered automatically
             IApiExplorer ex = this.Configuration.Services.GetApiExplorer();
 
-            // loop, convert and return all descriptions 
+            // loop, convert and return all descriptions
             return ex.ApiDescriptions
                 // ignore self
                 .Where(d => d.ActionDescriptor.ControllerDescriptor.ControllerName != "ApiMethod")

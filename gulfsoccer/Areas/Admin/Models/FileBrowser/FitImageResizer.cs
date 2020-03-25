@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace gulfsoccer.Areas.Admin.FileBrowser.Models
 {
     public class ImageResizer

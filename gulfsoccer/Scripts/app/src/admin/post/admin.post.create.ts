@@ -1,6 +1,9 @@
-﻿/// <reference path="../../../../typings/require/require.d.ts" />
+﻿///// <reference path="../../../../typings/require/require.d.ts" />
+/// <reference path="../../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../../../typings/kendo/kendo.all.d.ts" />
 //,
+// import * as $ from 'jquery';
+// import * as kendo from 'kendo';
 
 //requirejs.config({
 //    baseUrl: '',
@@ -16,271 +19,266 @@
 //        }
 //    }
 //});
-// requirejs(['jquery','MdbUI'], function (MdbUI) { }); 
-
-// import { JQuery as $ } from "jquery-3.4.1.min"
-
-
-
-
-const callback = (checkedNodes: any/*, ...args: any[]*/) => {
-    // let message: string;
-    // if (checkedNodes.length > 0) {
-    //     message = "IDs of checked nodes: " + checkedNodes.join(",");
-    // } else {
-    //     message = "No nodes checked.";
-    // }
-    $("#selectedCategories").val(checkedNodes.join(","));
-};
-const ServiceUrl: string = "/admin/CategoryTreeView/Remote_Data_Binding_Get_Categories";
-
-const baseImgUrl = "/Admin/ImageBrowser/";
-const baseFileUrl = "/Admin/FileBrowser/";
-
-const ImageBrowserOptions = {
-    apply: (e: any) => {
-        if (e) { }
-        // console.log(e.sender.dataSource.data()); // Get the Image Array
-        // console.log(e.sender.options.transport.imageUrl);
-        // console.log(e);
-    },
-    change: (e: any) => {
-        // console.log(e.sender.breadcrumbs._value);
-        const path = e.sender.options.transport.imageUrl;
-        const breadcrumbs = e.sender.breadcrumbs._value;
-        const imgUrl = path.replace("{0}", "") + ((breadcrumbs === "/") ? "" : breadcrumbs) + e.selected.id;
-        $("#featuredImage").val(imgUrl);
-        $("#thumbnail").css({ "background-image": "url('" + imgUrl + "')", "background-size": "100% 100%" });
-    },
-    properties: [{ addToPath: "" }],
-    transport: {
-        create: {
-            type: "POST",
-            url: baseImgUrl + "Create",
-        },
-        destroy: {
-            type: "POST",
-            url: baseImgUrl + "Destroy",
-        },
-        imageUrl: "/Content/UserFiles/Images/{0}",
-        read: baseImgUrl + "Read",
-        thumbnailUrl: baseImgUrl + "Thumbnail",
-        type: "imagebrowser-aspnetmvc",
-        uploadUrl: baseImgUrl + "Upload",
-    },
-};
-
-const EditorOptions = {
-    fileBrowser: {
-        transport: {
-            create: { url: baseFileUrl + "Create" },
-            destroy: { url: baseFileUrl + "Destroy" },
-            fileUrl: "/Content/UserFiles/Images/{0}",
-            read: { url: baseFileUrl + "Read" },
-            type: "filebrowser-aspnetmvc",
-            uploadUrl: "Upload",
-        },
-    },
-    imageBrowser: ImageBrowserOptions,
-    tools: [
-        { name: "bold" },
-        { name: "italic" },
-        { name: "underline" },
-        { name: "strikethrough" },
-        { name: "justifyLeft" },
-        { name: "justifyCenter" },
-        { name: "justifyRight" },
-        { name: "justifyFull" },
-        { name: "insertUnorderedList" },
-        { name: "insertOrderedList" },
-        { name: "indent" },
-        { name: "outdent" },
-        { name: "createLink" },
-        { name: "unlink" },
-        { name: "insertImage" },
-        { name: "insertFile" },
-        { name: "foreColor" },
-        { name: "backColor" },
-        { name: "subscript" },
-        { name: "superscript" },
-        { name: "tableWizard" },
-        { name: "createTable" },
-        { name: "addRowAbove" },
-        { name: "addRowBelow" },
-        { name: "addColumnLeft" },
-        { name: "addColumnRight" },
-        { name: "deleteRow" },
-        { name: "deleteColumn" },
-        { name: "mergeCellsHorizontally" },
-        { name: "mergeCellsVertically" },
-        { name: "splitCellHorizontally" },
-        { name: "splitCellVertically" },
-        { name: "viewHtml" },
-        { name: "formatting" },
-        { name: "cleanFormatting" },
-        { name: "fontName" },
-        { name: "fontSize" },
-        { name: "print" }
-    ],
-};
-
-    new CheckTreeView("#treeview", ServiceUrl, $("#selectedCategories").val().split(','), callback);
-    new MultiSelect("#tags", "#selectedTags", "/Admin/MultiSelect", [], "#noDataTemplate", () => { });
-$(document).ready(() => {
-    $("#editor").kendoEditor(EditorOptions);
-    $("#dialog").kendoDialog({
-        actions: [
-            { text: "Cancel" },
-            { text: "OK", primary: true, action: actionOK },
-        ],
-        closable: true,
-        content: "<div id='imgBrowser'></div> <br /> <div id='imgUrl'></div>",
-        initOpen: initOpen,
-        modal: true,
-        open: dialogOpen,
-        title: "Employees",
-        visible: false,
-        width: "90%",
-    });
-
-    $("#updateddatetimepicker").kendoDateTimePicker({
-        dateInput: true,
-        value: new Date(),
-    });
-
-    $("#createddatetimepicker").kendoDateTimePicker({
-        dateInput: true,
-        value: $("#Id").val() > 0 ? $("#createddatetimepicker").val() : new Date(),
-    });
-
-
-    $("#owner").kendoAutoComplete({
-        dataSource: {
-            schema: {
-                model: {
-                    fields: {
-                        Name: { type: "string" },
-                    },
-                    id: "ID",
-                },
-            },
-            transport: {
-                parameterMap: (_data: any, type: any) => {
-                    // if type is "read", then data is { foo: 1 }, we also want to add { "bar": 2 }
-                    if (type) { }
-                    _data = {};
-                    return { filter: $("#owner").val() };
-
-                },
-                prefix: "",
-                read: {
-                    data: onAdditionalData,
-                    url: "/Autocompelete/FilterUsersList",
-                },
-            },
-        },
-        dataTextField: "Name",
-        // "serverFiltering": true,
-        filter: "contains",
-        minLength: 3,
-    });
-    $("#mainCategory").kendoAutoComplete({
-        dataSource: {
-            schema: {
-                model: {
-                    fields: {
-                        Name: { type: "string" },
-                    },
-                    id: "ID",
-                },
-            },
-            transport: {
-                parameterMap: (_data: any, type: any) => {
-                    // if type is "read", then data is { foo: 1 }, we also want to add { "bar": 2 }
-                    if (type) { }
-                    _data = {};
-                    return { filter: $("#mainCategory").val() };
-
-                },
-                prefix: "",
-                read: {
-                    data: onAdditionalData,
-                    url: "/Admin/Autocompelete/FilterCategoryList",
-                },
-            },
-        },
-        dataTextField: "Name",
-        // "serverFiltering": true,
-        filter: "contains",
-        minLength: 3,
-    });
-});
-
-
-
-function initOpen(e: any) {
-    if (e) { }
-    $("#imgBrowser").kendoImageBrowser(ImageBrowserOptions);
-}
-function dialogOpen(e: any) {
-    if (e) { }
-    // console.log(e);
-}
-
-function actionOK(e: any) {
-    if (e) { }
-    // console.log(e);
-}
-
-$("#changeImage").kendoButton({
-    click: openDialog,
-});
-$("#thumbnail").click(openDialog);
-
-function openDialog(e: any) {
-    e.preventDefault();
-    e.stopPropagation = true;
-    $("#dialog").data("kendoDialog").open();
-}
-
-function onAdditionalData() {
-    return {
-        text: $("#products").val(),
+//requirejs(['jquery', 'kendo'], function ($, kendo) {
+//    kendo.parseInt("1");
+    const callback = (checkedNodes: any/*, ...args: any[]*/) => {
+        // let message: string;
+        // if (checkedNodes.length > 0) {
+        //     message = "IDs of checked nodes: " + checkedNodes.join(",");
+        // } else {
+        //     message = "No nodes checked.";
+        // }
+        $("#selectedCategories").val(checkedNodes.join(","));
     };
-}
+    const ServiceUrl: string = "/admin/CategoryTreeView/Remote_Data_Binding_Get_Categories";
 
-/* tslint:disable:no-unused-variable */
-function addNew(widgetId: any, value: any) {
-    var widget = $("#" + widgetId).getKendoMultiSelect();
-    var dataSource = widget.dataSource;
+    const baseImgUrl = "/Admin/ImageBrowser/";
+    const baseFileUrl = "/Admin/FileBrowser/";
 
-    if (confirm("Are you sure?")) {
-        dataSource.add({
-            ID: 0,
-            Name: value
+    const ImageBrowserOptions = {
+        apply: (e: any) => {
+            if (e) { }
+            // console.log(e.sender.dataSource.data()); // Get the Image Array
+            // console.log(e.sender.options.transport.imageUrl);
+            // console.log(e);
+        },
+        change: (e: any) => {
+            // console.log(e.sender.breadcrumbs._value);
+            const path = e.sender.options.transport.imageUrl;
+            const breadcrumbs = e.sender.breadcrumbs._value;
+            const imgUrl = path.replace("{0}", "") + ((breadcrumbs === "/") ? "" : breadcrumbs) + e.selected.id;
+            $("#featuredImage").val(imgUrl);
+            $("#thumbnail").css({ "background-image": "url('" + imgUrl + "')", "background-size": "100% 100%" });
+        },
+        properties: [{ addToPath: "" }],
+        transport: {
+            create: {
+                type: "POST",
+                url: baseImgUrl + "Create",
+            },
+            destroy: {
+                type: "POST",
+                url: baseImgUrl + "Destroy",
+            },
+            imageUrl: "/Content/UserFiles/Images/{0}",
+            read: baseImgUrl + "Read",
+            thumbnailUrl: baseImgUrl + "Thumbnail",
+            type: "imagebrowser-aspnetmvc",
+            uploadUrl: baseImgUrl + "Upload",
+        },
+    };
+
+    const EditorOptions = {
+        fileBrowser: {
+            transport: {
+                create: { url: baseFileUrl + "Create" },
+                destroy: { url: baseFileUrl + "Destroy" },
+                fileUrl: "/Content/UserFiles/Images/{0}",
+                read: { url: baseFileUrl + "Read" },
+                type: "filebrowser-aspnetmvc",
+                uploadUrl: "Upload",
+            },
+        },
+        imageBrowser: ImageBrowserOptions,
+        tools: [
+            { name: "bold" },
+            { name: "italic" },
+            { name: "underline" },
+            { name: "strikethrough" },
+            { name: "justifyLeft" },
+            { name: "justifyCenter" },
+            { name: "justifyRight" },
+            { name: "justifyFull" },
+            { name: "insertUnorderedList" },
+            { name: "insertOrderedList" },
+            { name: "indent" },
+            { name: "outdent" },
+            { name: "createLink" },
+            { name: "unlink" },
+            { name: "insertImage" },
+            { name: "insertFile" },
+            { name: "foreColor" },
+            { name: "backColor" },
+            { name: "subscript" },
+            { name: "superscript" },
+            { name: "tableWizard" },
+            { name: "createTable" },
+            { name: "addRowAbove" },
+            { name: "addRowBelow" },
+            { name: "addColumnLeft" },
+            { name: "addColumnRight" },
+            { name: "deleteRow" },
+            { name: "deleteColumn" },
+            { name: "mergeCellsHorizontally" },
+            { name: "mergeCellsVertically" },
+            { name: "splitCellHorizontally" },
+            { name: "splitCellVertically" },
+            { name: "viewHtml" },
+            { name: "formatting" },
+            { name: "cleanFormatting" },
+            { name: "fontName" },
+            { name: "fontSize" },
+            { name: "print" }
+        ],
+    };
+
+    new CheckTreeView("#treeview", ServiceUrl, (<string>$("#selectedCategories").val()).split(',').map(function (item) {
+        return parseInt(item, 10);
+    }), callback);
+    new MultiSelect("#tags", "#selectedTags", "/Admin/MultiSelect", [], "#noDataTemplate", () => { });
+    $(document).ready(() => {
+        if (false) { addNew("", ""); }
+        $("#editor").kendoEditor(EditorOptions);
+        $("#dialog").kendoDialog({
+            actions: [
+                { text: "Cancel" },
+                { text: "OK", primary: true, action: actionOK },
+            ],
+            closable: true,
+            content: "<div id='imgBrowser'></div> <br /> <div id='imgUrl'></div>",
+            initOpen: initOpen,
+            modal: true,
+            open: dialogOpen,
+            title: "Employees",
+            visible: false,
+            width: "90%",
         });
 
-        dataSource.one("requestEnd", function (args: any) {
-            console.log("args =");
-            console.log(args.type);
-            if (args.type !== "create") {
-                return;
-            }
-            // var newObj = JSON.parse(args.response);
-            var newValue = args.response[0].ID;
-            console.log("newValue = " + newValue);
-            dataSource.one("sync", function () {
-                widget.value(widget.value().concat([newValue]));
-            });
+        $("#updateddatetimepicker").kendoDateTimePicker({
+            dateInput: true,
+            value: new Date(),
         });
 
-        dataSource.sync();
+        let createdDate: Date = new Date();
+        if ($("#Id").val() as number > 0) {
+            createdDate = $("#createddatetimepicker").val() as unknown as Date;
+        }
+        $("#createddatetimepicker").kendoDateTimePicker({
+            dateInput: true,
+            value: createdDate,
+        });
+
+        $("#owner").kendoAutoComplete({
+            dataSource: {
+                schema: {
+                    model: {
+                        fields: {
+                            Name: { type: "string" },
+                        },
+                        id: "ID",
+                    },
+                },
+                transport: {
+                    parameterMap: (_data: any, type: any) => {
+                        // if type is "read", then data is { foo: 1 }, we also want to add { "bar": 2 }
+                        if (type) { }
+                        _data = {};
+                        return { filter: $("#owner").val() };
+                    },
+                    prefix: "",
+                    read: {
+                        data: onAdditionalData,
+                        url: "/Autocompelete/FilterUsersList",
+                    },
+                },
+            },
+            dataTextField: "Name",
+            // "serverFiltering": true,
+            filter: "contains",
+            minLength: 3,
+        });
+        $("#mainCategory").kendoAutoComplete({
+            dataSource: {
+                schema: {
+                    model: {
+                        fields: {
+                            Name: { type: "string" },
+                        },
+                        id: "ID",
+                    },
+                },
+                transport: {
+                    parameterMap: (_data: any, type: any) => {
+                        // if type is "read", then data is { foo: 1 }, we also want to add { "bar": 2 }
+                        if (type) { }
+                        _data = {};
+                        return { filter: $("#mainCategory").val() };
+                    },
+                    prefix: "",
+                    read: {
+                        data: onAdditionalData,
+                        url: "/Admin/Autocompelete/FilterCategoryList",
+                    },
+                },
+            },
+            dataTextField: "Name",
+            // "serverFiltering": true,
+            filter: "contains",
+            minLength: 3,
+        });
+    });
+
+    function initOpen(e: any) {
+        if (e) { }
+        $("#imgBrowser").kendoImageBrowser(ImageBrowserOptions);
     }
-};
+    function dialogOpen(e: any) {
+        if (e) { }
+        // console.log(e);
+    }
 
+    function actionOK(e: any) {
+        if (e) { }
+        // console.log(e);
+    }
 
+    $("#changeImage").kendoButton({
+        click: openDialog,
+    });
+    $("#thumbnail").click(openDialog);
+
+    function openDialog(e: any) {
+        e.preventDefault();
+        e.stopPropagation = true;
+        $("#dialog").data("kendoDialog").open();
+    }
+
+    function onAdditionalData() {
+        return {
+            text: $("#products").val(),
+        };
+    }
+
+    /* tslint:disable:no-unused-variable */
+    function addNew(widgetId: any, value: any) {
+        var widget = $("#" + widgetId).getKendoMultiSelect();
+        var dataSource = widget.dataSource;
+
+        if (confirm("Are you sure?")) {
+            dataSource.add({
+                ID: 0,
+                Name: value
+            });
+
+            dataSource.one("requestEnd", function (args: any) {
+                console.log("args =");
+                console.log(args.type);
+                if (args.type !== "create") {
+                    return;
+                }
+                // var newObj = JSON.parse(args.response);
+                var newValue = args.response[0].ID;
+                console.log("newValue = " + newValue);
+                dataSource.one("sync", function () {
+                    widget.value(widget.value().concat([newValue]));
+                });
+            });
+
+            dataSource.sync();
+        }
+    };
+// });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 /*$("#tags").kendoMultiSelect({
     valuePrimitive: true,
@@ -307,9 +305,7 @@ function addNew(widgetId: any, value: any) {
                     // console.log(MS.list);
                     ////////////////////
                     // MS.dataSource.data([]);
-                   
-                   
-                   
+
                     MS.dataSource.data().forEach(function (item: any) {
                         if (item && item["ID"]) {
                             var selectedTags = $("#selectedTags").val().split(',');
@@ -328,7 +324,6 @@ function addNew(widgetId: any, value: any) {
                             // MS.dataSource.remove(item);
                         }
                         // console.log(item);
-                      
                     });
                     d.forEach(function (item: any) {
                         // console.log(item["Name"]);
@@ -343,7 +338,6 @@ function addNew(widgetId: any, value: any) {
                     // MS.value(saved_values);
                     // MS.input.val(filter_value);
                     // MS.tagList = tag_list;
-                   
                 },
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded",
@@ -353,7 +347,6 @@ function addNew(widgetId: any, value: any) {
         } else {
             // $("#tags").data("kendoMultiSelect").dataSource.data({});
         }
-       
     },
     dataSource: {
          batch: true,
@@ -389,7 +382,6 @@ function addNew(widgetId: any, value: any) {
                 url: "/Admin/MultiSelect/create"
             },
             parameterMap: function (options, operation) {
-               
                 if (operation !== "read" ) {
                     console.log(operation);
                     console.log(kendo.stringify(options));
@@ -397,7 +389,7 @@ function addNew(widgetId: any, value: any) {
                     // operation.data = [{ ID: 0, Name: $("#tags").data("kendoMultiSelect").input.val() }];
                     return  kendo.stringify(options);
                 }
-               
+
                 /console.log(operation);
                 if ((operation !== "read" && options.models) || operation == "create" ) {
                     console.log("options.models");
@@ -413,7 +405,6 @@ function addNew(widgetId: any, value: any) {
                     } else {
                         return { models: { ID: "0", Name: $("#tags").data("kendoMultiSelect").input.val() } };
                     }
-                   
                 }/
             },
             read: {
@@ -436,8 +427,6 @@ function addNew(widgetId: any, value: any) {
     //    { Name: "Two", ID: 2 },
     //    { Name: "Three", ID: 3 },
     //],
-
-   
 });
 $.get("/Admin/MultiSelect/SelectValues", { data: $("#selectedTags").val() }, function (d) {
     var multiselect = $("#tags").data("kendoMultiSelect");

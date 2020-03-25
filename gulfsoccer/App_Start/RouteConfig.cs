@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace gulfsoccer
@@ -20,18 +16,17 @@ namespace gulfsoccer
                 namespaces: new string[] { "gulfsoccer.Areas.admin.Controllers" }
             );
 
-            
             //routes.MapRoute(
             //    name: "Image",
             //    url: "Img/{*uri}",
             //    defaults: new { controller = "Img", action = "Index" },
             //    namespaces: new string[] { "gulfsoccer.Controllers" }
             //);
-            
+
             routes.MapRoute(
                 name: "Post",
                 url: "post/{permalink}",
-                defaults: new { controller = "Post", action = "Index", permalink = UrlParameter.Optional},
+                defaults: new { controller = "Post", action = "Index", permalink = UrlParameter.Optional },
                 namespaces: new string[] { "gulfsoccer.Controllers" }
             );
 

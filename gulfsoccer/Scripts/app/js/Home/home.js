@@ -15,8 +15,6 @@ $(document).ready(function () {
         });
     }, "json");
     $.get("/Home/getLatestCategoryPosts/", { "count": 3, "skip": 0, "category": 2 }, function (_data) {
-        // console.log(data);
     }, "json");
-    // $('#grid-container').html(MdbUI_1.MdbGridUI.buildGrids($('[role="mdb-grid"]')));
 });
 //# sourceMappingURL=home.js.map

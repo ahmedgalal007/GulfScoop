@@ -64,7 +64,6 @@
                         <div id="dialog"></div>
                         <div id="add-product" class="demo-section k-content">
                             <div id="thumbnail" width="100%" style="background-image:url('@Model.featuredImage.Uri'); background-size: 100% 100%">
-
                             </div>
                             <input type="hidden" id="featuredImage" name="featuredImage" value="@Model.featuredImage.Uri" />
                             <button id="changeImage" class="k-primary">Change Image</button>
@@ -125,7 +124,7 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <!-- k-rtl-->
-                        <textarea id="description" name="description" rows="10" cols="30" style="height:440px" placeholder="Enter description here..."></textarea>
+                        <textarea id="description" name="description" rows="10"  style="height:150px;width:100%" placeholder="Enter description here..."></textarea>
                     </div>
                 </div>
 
@@ -154,16 +153,11 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <hr />
-
-
     </div>
 </form>
 @*}*@
-
-
 
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -173,8 +167,9 @@
     @*@Scripts.Render("~/bundles/jqueryval")*@
     <script type="text/javascript" src="~/Scripts/app/js/_shared/CheckTreeView.js"></script>
     <script type="text/javascript" src="~/Scripts/app/js/_shared/MultiSelect.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/js/admin/post/admin.post.create.js"></script>
-    
+    @*<script type="text/javascript" src="~/Scripts/app/js/admin/post/admin.post.create.js"></script>*@
+    <script src="@string.Format("{3}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"), "/Scripts/app/js/admin/post/admin.post.create.js")" ></script>
+
     <script>
 
         $("#owner").val("@User.Identity.Name");

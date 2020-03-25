@@ -1,5 +1,6 @@
-﻿/// <reference path="../../../../../typings/jquery/jquery.d.ts" />
-/// <reference path="../abstract.ts" />
+﻿///// <reference path="../../../../../typings/jquery/jquery.d.ts" />
+///// <reference path="../abstract.ts" />
+// import { BaseCard, ICardData } from "_shared/templates/Abstract";
 import { BaseCard, ICardData } from "_shared/templates/Abstract";
 //
 // <!--Card Light-- >
@@ -11,10 +12,10 @@ import { BaseCard, ICardData } from "_shared/templates/Abstract";
 //             <div class="mask rgba-white-slight" > </div>
 //         </a>
 //     </div>
-// 
+//
 //     <!--Card content-- >
 //     <div class="card-body" >
-// 
+//
 //         <!--Social shares button-- >
 //         <a class="activator waves-effect waves-light mr-4" > <i class="fas fa-share-alt" > </i></a >
 //         <!--Title -->
@@ -24,9 +25,9 @@ import { BaseCard, ICardData } from "_shared/templates/Abstract";
 //         <p class="card-text" > Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 //         < !--Link -->
 //         <a href="#!" class="black-text d-flex justify-content-end" > <h5>Read more < i class="fas fa-angle-double-right" > </i></h5 > </a>
-// 
+//
 //     </div>
-// 
+//
 // </div>
 // <!--Card Light-- >
 //
@@ -49,8 +50,8 @@ export class CardTitleParagraphReadmore extends BaseCard {
     //     // this.card_data = $('<p>').html('by <a class= "font-weight-bold" href="' + d.writerLink + '" > ' + d.writerName + ' </a>, ' + new Date(d.lastUpdated));
     //     this.card_excerpt = $('<p>').addClass('card-text').text(d.excerpt);
     //     this.card_readMore = $('<a>').addClass('black-text d-flex justify-content-end').attr('href', d.articleLink).html('<h5>'+ d.readMoreText +' < i class="fas fa-angle-double-right" > </i></h5 > ');
-    // 
-    //     
+    //
+    //
     //     this.card_featuredImage.append(this.card_featuredImage_img);
     //     this.card_featuredImage.append(this.card_featuredImage_imgMask);
     //     this.cardElem.append(this.card_featuredImage);
@@ -82,7 +83,7 @@ export class CardTitleParagraphReadmore extends BaseCard {
         this.card_body = $('<div/>');
         this.card_body.addClass('card-body');
         if (d.dark) {
-             this.card_body.addClass('elegant-color white-text rounded-bottom');
+            this.card_body.addClass('elegant-color white-text rounded-bottom');
         }
 
         this.card_body_socialbutton = $('<a/>');
@@ -104,12 +105,10 @@ export class CardTitleParagraphReadmore extends BaseCard {
         this.card_readMore.addClass('black-text d-flex justify-content-end');
         this.card_readMore.attr('href', d.articleLink);
         this.card_readMore.append($('<h5>' + d.readMoreText + ' <i class="fas fa-angle-double-right"> </i></h5>'));
-    
 
         ///Render ////////////////////////////////////////////////
         this.card_featuredImage.append(this.card_featuredImage_img);
         this.card_featuredImage.append(this.card_featuredImage_imgMask);
-        
 
         this.card_body_socialbutton.append(this.card_body_socialbutton_icon);
 
@@ -121,6 +120,6 @@ export class CardTitleParagraphReadmore extends BaseCard {
         this.cardElem.append(this.card_featuredImage);
         this.cardElem.append(this.card_body);
 
-        return this.cardElem ;
+        return this.cardElem;
     }
 }

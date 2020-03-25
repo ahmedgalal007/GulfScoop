@@ -1,10 +1,9 @@
-﻿using System;
+﻿using gulfsoccer.utilities.MDB;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using gulfsoccer.utilities.MDB;
-using Newtonsoft.Json;
 
 namespace gulfsoccer.Controllers
 {
@@ -113,16 +112,15 @@ namespace gulfsoccer.Controllers
                 MdbGridList.Add(new Grid()
                 {
                     // Get the category to build the Grid and get Posts to build cards
-                    card = grid.Card ,
+                    card = grid.Card,
                     headerText = "Grid Example !",
                     gridHeaderLink = "/",
                     paragraphTxt = "",
                     type = grid.Type,
-                    cards = testCards.Where(tc => tc.categoryTxt == "Category " + (int.Parse(grid.Elem.Substring(grid.Elem.Length - 1 ))+1)).ToList(),
+                    cards = testCards.Where(tc => tc.categoryTxt == "Category " + (int.Parse(grid.Elem.Substring(grid.Elem.Length - 1)) + 1)).ToList(),
                     element = grid.Elem
                 });
             });
-            
 
             var jsonResult = JsonConvert.SerializeObject(MdbGridList, Formatting.Indented,
                          new JsonSerializerSettings
@@ -130,10 +128,7 @@ namespace gulfsoccer.Controllers
                              ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                          });
             return Json(jsonResult, JsonRequestBehavior.AllowGet);
-
         }
-
-
     }
 
     public class MDBGridViewModel
@@ -149,6 +144,7 @@ namespace gulfsoccer.Controllers
 
         public string Elem { get; set; }
     }
+
     //public class MDBPageGridsViewModel
     //{
     //    public Grid grid { get; set; }

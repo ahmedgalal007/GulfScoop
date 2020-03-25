@@ -1,11 +1,6 @@
 ﻿using DAL.Database;
 using gulfsoccer.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Xml;
 
@@ -14,19 +9,20 @@ namespace gulfsoccer.Controllers
     public class SitemapeController : Controller
     {
         private ApplicationDbContext _db;
-        XmlDocument xmlDocument;
+        private XmlDocument xmlDocument;
+
         public SitemapeController()
         {
             this._db = new ApplicationDbContext();
             this.xmlDocument = new XmlDocument();
-
         }
+
         public SitemapeController(ApplicationDbContext db)
         {
             this._db = db;
             this.xmlDocument = new XmlDocument();
-
         }
+
         // GET: Sitemap
         public ActionResult Index()
         {
@@ -75,16 +71,16 @@ namespace gulfsoccer.Controllers
 
         public ActionResult Posts()
         {
-           
             int postsCount = this._db.Posts.Select(P => P.Id).Count();
             //int pages = (int)Math.Ceiling((double)(postsCount / 1000));
             XmlElement mainPostsSiteMape = this.xmlDocument.CreateElement("siteMape");
-            for (int i = 0; i < postsCount; i+=1000)
+            for (int i = 0; i < postsCount; i += 1000)
             {
                 XmlDocument XDOC = new XmlDocument();
                 // Create Pages
                 XmlElement XDOCsiteMape = XDOC.CreateElement("siteMape");
-                this._db.Posts.OrderBy(pst => pst.Created).Skip(i).Take(i+1000).ToList<Post>().ForEach(P => {
+                this._db.Posts.OrderBy(pst => pst.Created).Skip(i).Take(i + 1000).ToList<Post>().ForEach(P =>
+                {
                     string permalink = this._db.PermaLinks.Find(P.Id).Link;
                     XmlElement post = XDOC.CreateElement("siteMapNode");
 
@@ -114,8 +110,8 @@ namespace gulfsoccer.Controllers
             XmlDocument XDOC = new XmlDocument();
             // Create Pages
             XmlElement XDOCsiteMape = XDOC.CreateElement("siteMape");
-            this._db.Categories.OrderBy(cat => cat.name).ToList<Category>().ForEach(C => {
-
+            this._db.Categories.OrderBy(cat => cat.name).ToList<Category>().ForEach(C =>
+            {
                 XmlElement post = XDOC.CreateElement("siteMapNode");
 
                 post.SetAttribute("key", "Category");
@@ -140,8 +136,8 @@ namespace gulfsoccer.Controllers
                 XmlDocument XDOC = new XmlDocument();
                 // Create Pages
                 XmlElement XDOCsiteMape = XDOC.CreateElement("siteMape");
-                this._db.Tags.OrderBy(tag => tag.Id).Skip(i).Take(i + 1000).ToList<Tag>().ForEach(T => {
-
+                this._db.Tags.OrderBy(tag => tag.Id).Skip(i).Take(i + 1000).ToList<Tag>().ForEach(T =>
+                {
                     XmlElement post = XDOC.CreateElement("siteMapNode");
 
                     post.SetAttribute("key", "Tag");
@@ -164,6 +160,7 @@ namespace gulfsoccer.Controllers
             this.xmlDocument.Save(Request.MapPath("/") + "sitemape_tags.xml");
             return Content(this.xmlDocument.InnerXml);
         }
+
         public ActionResult Media()
         {
             int mediaCount = this._db.Medias.Select(M => M.Id).Count();
@@ -174,8 +171,8 @@ namespace gulfsoccer.Controllers
                 XmlDocument XDOC = new XmlDocument();
                 // Create Pages
                 XmlElement XDOCsiteMape = XDOC.CreateElement("siteMape");
-                this._db.Medias.OrderBy(M => M.Id).Skip(i).Take(i + 1000).ToList<Media>().ForEach(mItem => {
-
+                this._db.Medias.OrderBy(M => M.Id).Skip(i).Take(i + 1000).ToList<Media>().ForEach(mItem =>
+                {
                     XmlElement media = XDOC.CreateElement("siteMapNode");
 
                     media.SetAttribute("key", mItem.Type);

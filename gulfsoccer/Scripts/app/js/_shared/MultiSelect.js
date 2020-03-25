@@ -1,22 +1,14 @@
-/// <reference path="../../../typings/require/require.d.ts" />
-/// <reference path="../../../typings/jquery/jquery.d.ts" />
-/// <reference path="../../../typings/kendo/kendo.all.d.ts" />
-/// <amd-dependency path="Scripts/app/lib/kendo.ui.core.min" >
-// import $ = require("jquery");
-// import kendo = require("Scripts/app/lib/kendo.ui.core.min");
-var MultiSelect = /** @class */ (function () {
-    function MultiSelect(selector, returnElementSelector, serviceUrl, data, noDataTemplateSelector, onCheck) {
+class MultiSelect {
+    constructor(selector, returnElementSelector, serviceUrl, data, noDataTemplateSelector, onCheck) {
         var options = {
             valuePrimitive: true,
             autoBind: false,
-            change: function (e) {
+            change: (e) => {
                 if (e) { }
-                // console.log("Change");
                 $(returnElementSelector).val($(selector).data("kendoMultiSelect").value().join(","));
             },
             filtering: function (e) {
                 if (e) { }
-                // console.log(e);
                 if ($(selector).data("kendoMultiSelect").input.val() != "") {
                     $.ajax({
                         type: "POST",
@@ -26,7 +18,9 @@ var MultiSelect = /** @class */ (function () {
                             var MS = $("#tags").data("kendoMultiSelect");
                             MS.dataSource.data().forEach(function (item) {
                                 if (item && item["ID"]) {
-                                    var selectedTags = $("#selectedTags").val().split(',');
+                                    var selectedTags = $("#selectedTags").val().split(',').map(function (item) {
+                                        return parseInt(item, 10);
+                                    });
                                     var ItemFound;
                                     for (var t = 0; t < selectedTags.length; t++) {
                                         var stringPart = selectedTags[t];
@@ -43,22 +37,17 @@ var MultiSelect = /** @class */ (function () {
                             });
                             d.forEach(function (item) {
                                 var valStr = $(selector).data("kendoMultiSelect").value().join(",");
-                                // console.log(valStr);
                                 if (!valStr.match(new RegExp("(?:^|,)" + item["ID"] + "(?:,|$)"))) {
-                                    // it's there
                                     if (!$(selector).data("kendoMultiSelect").dataSource.get(item["ID"]))
                                         $(selector).data("kendoMultiSelect").dataSource.add({ ID: item["ID"], Name: item["Name"] });
                                 }
                             });
                         },
                         dataType: "json",
-                        contentType: "application/x-www-form-urlencoded"
+                        contentType: "application/x-www-form-urlencoded",
                     });
-                    //prevent filtering if the filter does not have value
-                    // e.preventDefault();
                 }
                 else {
-                    // $("#tags").data("kendoMultiSelect").dataSource.data({});
                 }
             },
             dataSource: {
@@ -93,19 +82,19 @@ var MultiSelect = /** @class */ (function () {
                         contentType: "application/x-www-form-urlencoded",
                         dataType: "json",
                         type: "post",
-                        url: serviceUrl + "/ServerFiltering_GetProducts"
-                    }
-                }
+                        url: serviceUrl + "/ServerFiltering_GetProducts",
+                    },
+                },
             },
             dataTextField: "Name",
             dataValueField: "ID",
             filter: "startswith",
             noDataTemplate: $(noDataTemplateSelector).html(),
             placeholder: "",
-            oncheck: onCheck
+            oncheck: onCheck,
         };
         if (data) { }
-        $(document).ready(function () {
+        $(document).ready(() => {
             $(selector).kendoMultiSelect(options);
             $.get(serviceUrl + "/SelectValues", { data: $(returnElementSelector).val() }, function (d) {
                 var multiselect = $(selector).data("kendoMultiSelect");
@@ -115,7 +104,5 @@ var MultiSelect = /** @class */ (function () {
             });
         });
     }
-    return MultiSelect;
-}());
-// export default MultiSelect;
+}
 //# sourceMappingURL=MultiSelect.js.map

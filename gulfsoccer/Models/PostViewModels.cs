@@ -3,7 +3,6 @@ using gulfsoccer.utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace gulfsoccer.Models.gulfsoccer
 {
@@ -47,7 +46,6 @@ namespace gulfsoccer.Models.gulfsoccer
             }
             catch (Exception)
             {
-
             }
 
             var paragraphes = TextConverter.StringToParagraphs(model.body);

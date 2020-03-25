@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace gulfsoccer.Models.kendo
+﻿namespace gulfsoccer.Models.kendo
 {
     public class ServerFilter
     {
         public string logic { get; set; }
         // public Array filters = new Array() { };
     }
+
     // "filter[filters][0][operator]"
     //public struct filter
     //{

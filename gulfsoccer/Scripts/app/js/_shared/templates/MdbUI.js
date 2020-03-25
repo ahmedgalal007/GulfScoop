@@ -1,7 +1,6 @@
 define(["require", "exports", "_shared/templates/cards/index", "_shared/templates/grids/index"], function (require, exports, index_1, index_2) {
     "use strict";
-    exports.__esModule = true;
-    // Abstract = module("./Abstract")
+    Object.defineProperty(exports, "__esModule", { value: true });
     function CardFactory(type) {
         return new index_1.CardFactoeies[type]();
     }
@@ -10,24 +9,17 @@ define(["require", "exports", "_shared/templates/cards/index", "_shared/template
         return new index_2.GridFactories[type]();
     }
     ;
-    var grid = /** @class */ (function () {
-        function grid() {
-        }
-        return grid;
-    }());
+    class grid {
+    }
     ;
-    var MdbGridUI = /** @class */ (function () {
-        function MdbGridUI() {
-        }
-        MdbGridUI.buildGrids = function (elements) {
-            // let result:JQuery = $('<div/>');
-            var Grids = new Array();
-            var gridPointers = {};
-            var count = 0;
-            var prefix = "mdb-doc-grid-";
+    class MdbGridUI {
+        static buildGrids(elements) {
+            let Grids = new Array();
+            let gridPointers = {};
+            let count = 0;
+            let prefix = "mdb-doc-grid-";
             elements.each(function () {
-                var _grid = new grid();
-                // console.log($(this).data());
+                let _grid = new grid();
                 _grid.Type = $(this).data('mdbGridType');
                 _grid.Card = $(this).data('mdbGridCard');
                 _grid.Category = $(this).data('mdbGridCategory');
@@ -38,23 +30,19 @@ define(["require", "exports", "_shared/templates/cards/index", "_shared/template
                 gridPointers[prefix + count] = $(this);
                 count++;
             });
-            // console.log(Grids);
-            $.post("/MDBGrid/GetPageGrids", { "grids": Grids }, function (data, textStatus, jqXHR) {
-                var g = JSON.parse(data);
-                for (var i = 0; i < g.length; i++) {
+            $.post("/MDBGrid/GetPageGrids", { "grids": Grids }, function (data) {
+                let g = JSON.parse(data);
+                for (let i = 0; i < g.length; i++) {
                     MdbGridUI.renderGrid(gridPointers[g[i].element], g[i]);
                 }
-                //console.log(result);
             });
-            //return result;
-        };
-        MdbGridUI.renderGrid = function (container, grid) {
-            var _grid = GridFactory(grid.type);
-            _grid.card = CardFactory(grid.card);
-            return _grid.render(container, grid);
-        };
-        return MdbGridUI;
-    }());
+        }
+    }
     exports.MdbGridUI = MdbGridUI;
+    MdbGridUI.renderGrid = function (container, grid) {
+        const _grid = GridFactory(grid.type);
+        _grid.card = CardFactory(grid.card);
+        return _grid.render(container, grid);
+    };
 });
 //# sourceMappingURL=MdbUI.js.map

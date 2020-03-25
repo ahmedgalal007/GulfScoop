@@ -1,8 +1,6 @@
 ﻿using gulfsoccer.Models;
 using Microsoft.AspNet.Identity.Owin;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -17,11 +15,10 @@ namespace gulfsoccer.Controllers
         {
         }
 
-        public RoleController( ApplicationRoleManager roleManager)
+        public RoleController(ApplicationRoleManager roleManager)
         {
             RoleManager = roleManager;
         }
-
 
         public ApplicationRoleManager RoleManager
         {
@@ -35,13 +32,12 @@ namespace gulfsoccer.Controllers
             }
         }
 
-
         public ActionResult Index()
         {
             List<RoleViewModel> list = new List<RoleViewModel>();
-            foreach(var role in RoleManager.Roles)
+            foreach (var role in RoleManager.Roles)
                 list.Add(new RoleViewModel(role));
-            
+
             return View(list);
         }
 
@@ -58,7 +54,7 @@ namespace gulfsoccer.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Edit(string id )
+        public async Task<ActionResult> Edit(string id)
         {
             var role = await RoleManager.FindByIdAsync(id);
             return View(new RoleViewModel(role));
@@ -91,6 +87,5 @@ namespace gulfsoccer.Controllers
             await RoleManager.DeleteAsync(role);
             return RedirectToAction("Index");
         }
-
     }
 }

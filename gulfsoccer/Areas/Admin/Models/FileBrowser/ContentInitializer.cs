@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Web;
-using System;
 
 namespace gulfsoccer.Areas.Admin.FileBrowser.Models
 {
@@ -11,7 +11,7 @@ namespace gulfsoccer.Areas.Admin.FileBrowser.Models
         private string prettyName;
 
         public ContentInitializer(string rootFolder, string[] foldersToCopy, string prettyName)
-        {            
+        {
             this.rootFolder = rootFolder;
             this.foldersToCopy = foldersToCopy;
             this.prettyName = prettyName;

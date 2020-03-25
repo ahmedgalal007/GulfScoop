@@ -1,20 +1,20 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
-    var BaseGrid = /** @class */ (function () {
-        function BaseGrid() {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    class BaseGrid {
+        constructor() { }
+        render(container, d) {
+            if (container && d) {
+            }
         }
-        BaseGrid.prototype.render = function (container, d) { };
         ;
-        return BaseGrid;
-    }());
+    }
     exports.BaseGrid = BaseGrid;
-    var BaseCard = /** @class */ (function () {
-        function BaseCard() {
+    class BaseCard {
+        constructor() {
         }
-        BaseCard.prototype.createCard = function (data) { return $("<div>"); };
-        return BaseCard;
-    }());
+        createCard(data) { return $("<div>").data(data); }
+    }
     exports.BaseCard = BaseCard;
     exports.registeredCardFactories = {};
     exports.registeredGridFactories = {};

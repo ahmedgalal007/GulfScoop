@@ -1,9 +1,7 @@
 ﻿using DAL.Database;
 using gulfsoccer.utilities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace gulfsoccer.Models.gulfsoccer
 {
@@ -28,7 +26,7 @@ namespace gulfsoccer.Models.gulfsoccer
             PostViewModel_Short model = new PostViewModel_Short();
             model.id = dbPost.Id;
             model.title = dbPost.Title;
-            model.body = TextConverter.StringToParagraphs(dbPost.Body).Count()>0?TextConverter.StringToParagraphs(dbPost.Body).First().Substring(0,156):"";
+            model.body = TextConverter.StringToParagraphs(dbPost.Body).Count() > 0 ? TextConverter.StringToParagraphs(dbPost.Body).First().Substring(0, 156) : "";
             model.created = dbPost.Created;
             model.updated = dbPost.Updated;
             model.owner = dbPost.Owner;
@@ -41,7 +39,6 @@ namespace gulfsoccer.Models.gulfsoccer
             }
             catch (Exception)
             {
-
             }
 
             var paragraphes = TextConverter.StringToParagraphs(model.body);

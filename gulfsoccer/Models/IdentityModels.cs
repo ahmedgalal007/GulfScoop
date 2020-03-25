@@ -1,9 +1,9 @@
-﻿using System.Data.Entity;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using DAL.Database;
+﻿using DAL.Database;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace gulfsoccer.Models
 {
@@ -31,9 +31,9 @@ namespace gulfsoccer.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<Post> Posts { get; set;}
+        public DbSet<Post> Posts { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Tag>Tags { get; set; }
+        public DbSet<Tag> Tags { get; set; }
         public DbSet<HeadAttr> HeadAttrs { get; set; }
         public DbSet<Media> Medias { get; set; }
         public DbSet<PermaLink> PermaLinks { get; set; }
@@ -42,11 +42,11 @@ namespace gulfsoccer.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating( modelBuilder);
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<PermaLink>().HasKey(L => new { L.PostId });
             modelBuilder.Entity<PostCategory>().HasKey(PC => new { PC.PostId, PC.CategoryId });
             modelBuilder.Entity<PostTag>().HasKey(PT => new { PT.PostId, PT.TagId });
-            modelBuilder.Entity<AlbumMedia>().HasKey(AM => new { AM.AlbumId, AM.MediaId});
+            modelBuilder.Entity<AlbumMedia>().HasKey(AM => new { AM.AlbumId, AM.MediaId });
         }
     }
 }

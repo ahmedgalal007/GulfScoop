@@ -1,5 +1,5 @@
-﻿/// <reference path="../../../typings/require/require.d.ts" />
-/// <reference path="../../../typings/jquery/jquery.d.ts" />
+﻿///// <reference path="../../../typings/require/require.d.ts" />
+///// <reference path="../../../typings/jquery/jquery.d.ts" />
 
 /// <reference path="../../../typings/kendo/kendo.all.d.ts" />
 /// <amd-dependency path="Scripts/app/lib/kendo.ui.core.min" >
@@ -15,7 +15,7 @@ class CheckTreeView {
     private _homogeneous: any;
     private _onCheck: Function;
 
-    public constructor(selector: string, serviceUrl: string, data:number[], onCheck: Function) {
+    public constructor(selector: string, serviceUrl: string, data: number[], onCheck: Function) {
         this._selector = selector;
         this._serviceUrl = serviceUrl;
         this._homogeneous = new kendo.data.HierarchicalDataSource({
@@ -42,7 +42,7 @@ class CheckTreeView {
             },
             dataSource: this._homogeneous,
             dataTextField: "Name",
-            dataBound:function(e) {
+            dataBound: function (e) {
                 // Populate Treeview with Intial Values
                 var treeview = e.sender;
                 if (treeview.dataSource.data().length > 0) {
@@ -55,14 +55,11 @@ class CheckTreeView {
                             console.log(selectitem);
                         }
                     });
-                    
                 }
             }
         });
 
         this._onCheck = onCheck;
-        
-        
     }
 
     public onCheck = () => {
@@ -83,8 +80,6 @@ class CheckTreeView {
             }
         });
     }
-
 }
 
 // export default CheckTreeView;
-

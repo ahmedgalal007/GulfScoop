@@ -1,10 +1,6 @@
 ﻿using DAL.Database;
 using gulfsoccer.Areas.Admin.Models.PostViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace gulfsoccer.Areas.Admin.ApiControllers
@@ -26,8 +22,8 @@ namespace gulfsoccer.Areas.Admin.ApiControllers
         // POST: api/Post
         public void Post([FromBody]CreatePostViewModel post)
         {
-            if (post.id == 0) {
-
+            if (post.id == 0)
+            {
             }
         }
 

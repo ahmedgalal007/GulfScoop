@@ -1,13 +1,11 @@
-// declare var requirejs: any;
 requirejs.config({
     baseUrl: 'Scripts/app/js/',
     paths: {
-        MdbUI: '_shared/templates/MdbUI',
-        jquery: '../../jquery-3.4.1.min'
+        MdbUI: './_shared/templates/MdbUI',
+        jquery: '../../jquery-3.4.1.min',
+        kendo: '../../kendo/2019.2.619/kendo.all.min'
     }
 });
-// requirejs(['jquery','MdbUI'], function (MdbUI) { }); 
-// import { JQuery as $ } from "jquery-3.4.1.min"
 requirejs(['jquery', 'MdbUI'], function ($, MdbUI) {
     $(document).ready(function () {
         var cardTemplate = $('#card-template').html();
@@ -25,16 +23,7 @@ requirejs(['jquery', 'MdbUI'], function ($, MdbUI) {
                 console.log(items[item]);
             });
         }, "json");
-        //$.get("/Home/getLatestCategoryPosts/",
-        //    { "count": 3, "skip": 0, "category": 2 },
-        //    function (_data) {
-        //    },
-        //    "json"
-        //);
-        // console.log(MdbUI);
         MdbUI.MdbGridUI.buildGrids($('[role="mdb-grid"]'));
-        // let elem = $('<div>').text('Ahmed Galal');
-        // $('#grid-container').append(elem);
     });
 });
 //# sourceMappingURL=config.js.map

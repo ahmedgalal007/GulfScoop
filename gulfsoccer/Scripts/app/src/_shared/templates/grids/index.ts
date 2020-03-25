@@ -1,5 +1,4 @@
-﻿
-import { registeredGridFactories } from "_shared/templates/Abstract";
+﻿import { registeredGridFactories } from "_shared/templates/Abstract";
 
 //app/js/_shared/templates/grids
 import { GridCardCategoryTitle } from "_shared/templates/grids/GridCardCategoryTitle";

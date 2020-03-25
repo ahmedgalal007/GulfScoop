@@ -1,26 +1,20 @@
 ﻿using DAL.Database;
 using gulfsoccer.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 
 namespace gulfsoccer.Areas.Admin.Controllers
 {
     [System.Web.Mvc.Route("/Admin/MultiSelect/")]
     public class MultiSelectController : Controller
     {
-
         private readonly ApplicationDbContext _db;
         //private List<KendoSelectOption> options = new List<KendoSelectOption>() { new KendoSelectOption { ID = "1", Name = "one" }, new KendoSelectOption { ID = "2", Name = "Two" }, new KendoSelectOption { ID = "3", Name = "Three" } };
-        
+
         public MultiSelectController()
         {
             this._db = new ApplicationDbContext();
@@ -36,9 +30,9 @@ namespace gulfsoccer.Areas.Admin.Controllers
             // IEnumerable<KendoSelectOption> options = JsonConvert.DeserializeObject<IEnumerable<KendoSelectOption>>(models[0]);
             Models JModel = JsonConvert.DeserializeObject<Models>(models[0]);
             // List<Tag> tags = new List<Tag>();
-            foreach(KendoSelectOption option in JModel.models)
+            foreach (KendoSelectOption option in JModel.models)
             {
-                Tag T = new Tag { Id = int.Parse(option.ID), Name = option.Name};
+                Tag T = new Tag { Id = int.Parse(option.ID), Name = option.Name };
                 this._db.Tags.Add(T);
                 this._db.SaveChanges();
                 option.ID = T.Id.ToString();
@@ -47,8 +41,7 @@ namespace gulfsoccer.Areas.Admin.Controllers
             // String result = "[";
             // tags.ForEach(T =>
             // {
-                
-                // result += "{\"ID\": " + T.Id + " , \"Name\": \"" + T.Name + "\"}";
+            // result += "{\"ID\": " + T.Id + " , \"Name\": \"" + T.Name + "\"}";
             // });
             // result += "]";
 
@@ -76,15 +69,15 @@ namespace gulfsoccer.Areas.Admin.Controllers
                     result += "{ \"ID\": " + R.Id + ", \"Name\":\"" + R.Name + "\" }";
                 });
             }
-            
+
             result += "]";
             return Content(result);
         }
+
         // [System.Web.Mvc.Route("/Admin/MultiSelect/ServerFiltering_GetProducts")]
         [System.Web.Mvc.HttpPost]
         public JsonResult ServerFiltering_GetProducts(FormCollection formCollection)
         {
-
             //var options = new List<KendoSelectOption>();
 
             //using (ApplicationDbContext context = new ApplicationDbContext()) {
@@ -102,21 +95,19 @@ namespace gulfsoccer.Areas.Admin.Controllers
             //    UnitsOnOrder = product.UnitsOnOrder ?? 0,
             //    Discontinued = product.Discontinued
             //});
-            
-            string text = formCollection["text"] != null? formCollection["text"].Replace("\"", ""): "";
+
+            string text = formCollection["text"] != null ? formCollection["text"].Replace("\"", "") : "";
             string val = formCollection["val"] != null ? formCollection["val"].Replace("\"", "").Replace("[", "").Replace("]", "") : "";  //val.Replace("\"", "").Replace("[", "").Replace("]", "");
 
             JsonResult jsn = Json(getOptions(text, val));
             return jsn;
         }
 
-
-
         private List<KendoSelectOption> getOptions(string filter, string val)
         {
             List<KendoSelectOption> options = new List<KendoSelectOption>();
-            if (!string.IsNullOrEmpty(filter) || !string.IsNullOrEmpty(val)) {
-
+            if (!string.IsNullOrEmpty(filter) || !string.IsNullOrEmpty(val))
+            {
                 CultureInfo ci = new CultureInfo("en-US");
                 //var tags = this._db.Tags.Where(T => val.Contains(T.Id.ToString())).ToList();
                 //foreach (Tag v in tags)
@@ -131,19 +122,19 @@ namespace gulfsoccer.Areas.Admin.Controllers
             }
             return options;
         }
-
-
     }
 
     public class Models
     {
         public IEnumerable<KendoSelectOption> models { get; set; }
     }
+
     public class KendoSelectOption
     {
         public string ID { get; set; }
         public string Name { get; set; }
     }
+
     public class readViewModel
     {
         public string text { get; set; }

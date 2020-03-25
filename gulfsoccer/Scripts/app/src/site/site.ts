@@ -1,5 +1,4 @@
 ﻿export class Site {
-
     public static init(_param1: number): string {
         return "";
     }
@@ -16,4 +15,4 @@
     }
 }
 
-console.log(Site.init( 1000));
+console.log(Site.init(1000));

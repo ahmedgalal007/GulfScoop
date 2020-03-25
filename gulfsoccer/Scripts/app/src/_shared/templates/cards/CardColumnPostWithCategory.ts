@@ -1,5 +1,6 @@
-﻿/// <reference path="../../../../../typings/jquery/jquery.d.ts" />
-/// <reference path="../abstract.ts" />
+﻿///// <reference path="../../../../../typings/jquery/jquery.d.ts" />
+///// <reference path="../abstract.ts" />
+// import { BaseCard, ICardData } from "_shared/templates/Abstract";
 import { BaseCard, ICardData } from "_shared/templates/Abstract";
 //
 //            <div class="col-lg-4 col-md-6 mb-4">
@@ -49,8 +50,8 @@ export class CardColumnPostWithCategory extends BaseCard {
     //     this.card_data = $('<p>').html('by <a class= "font-weight-bold" href="' + d.writerLink + '" > ' + d.writerName + ' </a>, ' + new Date(d.lastUpdated));
     //     this.card_excerpt = $('<p>').addClass('dark-grey-text').text(d.excerpt==null?"":d.excerpt);
     //     this.card_readMore = $('<a>').addClass('btn btn-deep-orange btn-rounded btn-md').attr('href', d.articleLink).text(d.readMoreText);
-    // 
-    //     
+    //
+    //
     //     this.card_featuredImage.append(this.card_featuredImage_img);
     //     this.card_featuredImage.append(this.card_featuredImage_imgMask);
     //     this.cardElem.append(this.card_featuredImage);
@@ -105,11 +106,9 @@ export class CardColumnPostWithCategory extends BaseCard {
         this.card_readMore.attr('href', d.articleLink);
         this.card_readMore.text(d.readMoreText);
 
-
         ///Render ////////////////////////////////////////////////
         this.card_featuredImage.append(this.card_featuredImage_img);
         this.card_featuredImage.append(this.card_featuredImage_imgMask);
-
 
         this.card_category_Header.append(this.card_category_Header_Icon);
         this.card_category.append(this.card_category_Header);

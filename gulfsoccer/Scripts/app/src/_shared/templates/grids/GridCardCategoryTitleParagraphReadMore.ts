@@ -20,7 +20,6 @@
 // </div>
 
 export class GridCardCategoryTitleParagraphReadMore extends BaseGrid {
-
     constructor() {
         super();
     }
@@ -48,6 +47,3 @@ export class GridCardCategoryTitleParagraphReadMore extends BaseGrid {
         container.append(this.grid);
     }
 }
-
-
-

@@ -5,7 +5,6 @@ using ImageProcessor;
 using ImageProcessor.Imaging.Formats;
 using ImageProcessor.Plugins.WebP.Imaging.Formats;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -41,47 +40,45 @@ namespace gulfsoccer.Handlers
                 Size size = new Size(width, height);
                 //if (context.Request.UserAgent.IndexOf("Chrome/", StringComparison.InvariantCultureIgnoreCase) >= 0)
                 //{
-                    context.Response.ClearHeaders();
-                    context.Response.ClearContent();
+                context.Response.ClearHeaders();
+                context.Response.ClearContent();
 
-                    if (File.Exists(file))
+                if (File.Exists(file))
+                {
+                    // var content = File.ReadAllBytes(path);
+                    // context.Response.OutputStream.Write(content, 0, content.Length);
+                    // context.Response.OutputStream.Flush();
+                    using (MemoryStream inStream = new MemoryStream(photoBytes))
                     {
-
-                        // var content = File.ReadAllBytes(path);
-                        // context.Response.OutputStream.Write(content, 0, content.Length);
-                        // context.Response.OutputStream.Flush();
-                        using (MemoryStream inStream = new MemoryStream(photoBytes))
+                        using (MemoryStream outStream = new MemoryStream())
                         {
-                            using (MemoryStream outStream = new MemoryStream())
+                            // Initialize the ImageFactory using the overload to preserve EXIF metadata.
+                            using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
                             {
-                                // Initialize the ImageFactory using the overload to preserve EXIF metadata.
-                                using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
-                                {
-                                    // Load, resize, set the format and quality and save an image.
-                                    imageFactory.Load(inStream)
-                                                .Resize(size)
-                                                .Format(format)
-                                                .Save(outStream);
-                                }
-                                // Do something with the stream.
-                                context.Response.ContentType = "image/webp";
-                                context.Response.Buffer = false;
-                                context.Response.BufferOutput = false;
-
-                                outStream.CopyToAsync(context.Response.OutputStream);
-                                context.Response.AppendHeader("Content-type", "image/webp");
-                                context.Response.OutputStream.Flush();
-                                
-                                //this.Response.Write(outStream.GetBuffer());
-                                // return new HttpStatusCodeResult(200);
+                                // Load, resize, set the format and quality and save an image.
+                                imageFactory.Load(inStream)
+                                            .Resize(size)
+                                            .Format(format)
+                                            .Save(outStream);
                             }
+                            // Do something with the stream.
+                            context.Response.ContentType = "image/webp";
+                            context.Response.Buffer = false;
+                            context.Response.BufferOutput = false;
+
+                            outStream.CopyToAsync(context.Response.OutputStream);
+                            context.Response.AppendHeader("Content-type", "image/webp");
+                            context.Response.OutputStream.Flush();
+
+                            //this.Response.Write(outStream.GetBuffer());
+                            // return new HttpStatusCodeResult(200);
                         }
-                        
                     }
-                    else
-                    {
-                        ImageFallback(context, path);
-                    }
+                }
+                else
+                {
+                    ImageFallback(context, path);
+                }
                 //}
                 //else
                 //{

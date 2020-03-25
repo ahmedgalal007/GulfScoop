@@ -5,7 +5,6 @@ using gulfsoccer.utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace gulfsoccer.Controllers
@@ -13,29 +12,32 @@ namespace gulfsoccer.Controllers
     public class PostController : Controller
     {
         private readonly ApplicationDbContext _db;
+
         public PostController()
         {
             this._db = new ApplicationDbContext();
         }
+
         public PostController(ApplicationDbContext Db)
         {
             this._db = Db;
         }
+
         // GET: Post/Id/1
         public ActionResult Id(int id)
         {
             Post post = _db.Posts.Find(id);
             return View("Post", getPostViewModel(post, _db));
         }
+
         // GET: Post/PermaLink
         public ActionResult Index(string permaLink)
         {
-            Post post = _db.Posts.Find(_db.PermaLinks.Where(L => L.Link==permaLink).FirstOrDefault().PostId);
+            Post post = _db.Posts.Find(_db.PermaLinks.Where(L => L.Link == permaLink).FirstOrDefault().PostId);
             return View("Post", getPostViewModel(post, _db));
         }
-        
 
-        public PostViewModel getPostViewModel(Post dbPost, ApplicationDbContext db )
+        public PostViewModel getPostViewModel(Post dbPost, ApplicationDbContext db)
         {
             PostViewModel model = new PostViewModel();
             model.id = dbPost.Id;
@@ -54,11 +56,10 @@ namespace gulfsoccer.Controllers
 
                 model.tags = tags;
                 var permalink = db.PermaLinks.Where(PL => PL.PostId == dbPost.Id).Select(PL => PL.Link).FirstOrDefault();
-                model.permalink = !String.IsNullOrEmpty(permalink)? "/Post/" + permalink : "/Post/Id/" + dbPost.Id;
+                model.permalink = !String.IsNullOrEmpty(permalink) ? "/Post/" + permalink : "/Post/Id/" + dbPost.Id;
             }
             catch (Exception)
             {
-
             }
 
             var paragraphes = TextConverter.StringToParagraphs(model.body);

@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "module": "amd",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "noEmitOnError": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "es2015",
+    "outDir": "app/js/",
+    "rootDir": "./app/src/",
+    "baseUrl": "./app/src/",
+    "paths": {
+      "jquery": [ "typings/jquery/jquery" ],
+      "kendo": [ "typings/kendo/kendo.all" ]
+    },
+    "sourceRoot": "./app/src/"
+  },
+  "include": [ "./app/src/*.ts", "./app/src/*/*.ts", "./app/src/*/*/*.ts" ],
+  "exclude": [
+    "node_modules",
+    "wwwroot"
+  ],
+  "types": [],
+  "esModuleInterop": true,
+  "allowSyntheticDefaultImports": true
+}

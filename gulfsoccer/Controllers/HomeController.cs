@@ -1,11 +1,9 @@
-﻿using DAL.Database;
-using gulfsoccer.Models;
+﻿using gulfsoccer.Models;
 using gulfsoccer.Models.gulfsoccer;
 using gulfsoccer.utilities.JSON;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace gulfsoccer.Controllers
@@ -13,14 +11,17 @@ namespace gulfsoccer.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _db;
+
         public HomeController()
         {
             this._db = new ApplicationDbContext();
         }
+
         public HomeController(ApplicationDbContext Db)
         {
             this._db = Db;
         }
+
         public ActionResult Index()
         {
             return View();
@@ -54,29 +55,24 @@ namespace gulfsoccer.Controllers
                 posts.Add(PostViewModel.getPostViewModel(PA, this._db));
             });
 
-           
-
             return Json(JConvert.serializePosts(posts), JsonRequestBehavior.AllowGet);
             // return Json(new { foo = "bar", baz = "Blech" }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult getLatestCategoryPosts(int count, int skip,int category)
+
+        public JsonResult getLatestCategoryPosts(int count, int skip, int category)
         {
             List<PostViewModel> posts = new List<PostViewModel>();
 
-            this._db.Posts.Where(PST => this._db.PostCategories.Where(PC => PC.CategoryId == category).Select(PCI => PCI.PostId).Contains(PST.Id) ).OrderByDescending(PS => PS.Created).Take(count).Skip(skip).ToList().ForEach(PA =>
-            {
-                posts.Add(PostViewModel.getPostViewModel(PA, this._db));
-            });
-
-
+            this._db.Posts.Where(PST => this._db.PostCategories.Where(PC => PC.CategoryId == category).Select(PCI => PCI.PostId).Contains(PST.Id)).OrderByDescending(PS => PS.Created).Take(count).Skip(skip).ToList().ForEach(PA =>
+           {
+               posts.Add(PostViewModel.getPostViewModel(PA, this._db));
+           });
 
             return Json(JConvert.serializePosts(posts), JsonRequestBehavior.AllowGet);
             // return Json(new { foo = "bar", baz = "Blech" }, JsonRequestBehavior.AllowGet);
         }
 
-
         #region "Helpers"
-        
 
         //public PostViewModel getPostViewModel(Post dbPost, ApplicationDbContext db)
         //{
@@ -100,13 +96,11 @@ namespace gulfsoccer.Controllers
         //    }
         //    catch (Exception)
         //    {
-
         //    }
-
 
         //    return model;
         //}
-        #endregion
 
+        #endregion "Helpers"
     }
 }
