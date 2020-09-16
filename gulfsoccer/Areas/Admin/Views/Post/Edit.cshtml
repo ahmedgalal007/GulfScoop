@@ -7,6 +7,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @section  styles{
+    <link  href="/Content/cropperjs/cropper.min.css" rel="stylesheet"></link>
     <style rel="stylesheet" type="text/css">
         input, select, textarea {max-width:100%;}
         #treeview{ border-top: gray solid 1px; border-bottom: gray solid 1px; margin:0px 0;}
@@ -63,10 +64,13 @@
                     <div class="col-md-12">
                         <div id="dialog"></div>
                         <div id="add-product" class="demo-section k-content">
-                            <div id="thumbnail" width="100%" style="background-image:url('@Model.featuredImage.Uri'); background-size: 100% 100%">
-                            </div>
+                            <img id="thumbnail" width="100%" style="background-image:url('@Model.featuredImage.Uri'); background-size: 100% 100%" />
                             <input type="hidden" id="featuredImage" name="featuredImage" value="@Model.featuredImage.Uri" />
+                            <input type="hidden" id="featuredImagethumbs" name="featuredImagethumbs" value="@Model.thumbBoxSizes" />
+                            <img id="ImgCropper" src="@Model.featuredImage.Uri" style="display:none" />
                             <button id="changeImage" class="k-primary">Change Image</button>
+                            <button class="btn-thumbnail">Crop</button>
+                            <div id="ImageCropper"></div>
                         </div>
                     </div>
                 </div>
@@ -124,7 +128,7 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <!-- k-rtl-->
-                        <textarea id="description" name="description" rows="10"  style="height:150px;width:100%" placeholder="Enter description here..."></textarea>
+                        <textarea id="description" name="description" rows="10" style="height:150px;width:100%" placeholder="Enter description here..."></textarea>
                     </div>
                 </div>
 
@@ -165,13 +169,26 @@
 
 @section Scripts {
     @*@Scripts.Render("~/bundles/jqueryval")*@
-    <script type="text/javascript" src="~/Scripts/app/js/_shared/CheckTreeView.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/js/_shared/MultiSelect.js"></script>
-    @*<script type="text/javascript" src="~/Scripts/app/js/admin/post/admin.post.create.js"></script>*@
-    <script src="@string.Format("{3}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"), "/Scripts/app/js/admin/post/admin.post.create.js")" ></script>
+    <script type="text/javascript" src="/Scripts/app/js/_shared/CheckTreeView.js"></script>
+    <script type="text/javascript" src="/Scripts/app/js/_shared/MultiSelect.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/lib/cropperjs/cropper.min.js"></script>
+    <script type="text/javascript" src="/Scripts/app/js/admin/post/admin.post.create.js"></script>
+    @*<script src="@string.Format("{3}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"), "/Scripts/app/js/admin/post/admin.post.create.js")" ></script>*@
 
     <script>
 
         $("#owner").val("@User.Identity.Name");
+    </script>
+
+    <script type="text/template" id="cropperContentTemplate">
+        <div class='img-container'><img id='cropper-img' src='' alt='Picture' class></div>
+        <div id="select-AspectRatio">
+            @foreach (DAL.Database.ThumbSize item in Model.thumbSizes)
+            {
+                <span data-thumb-size-id="@item.Id" data-aspect-ratio="@item.AspectRatio">
+                    @item.Name
+                </span>
+            }
+        </div>
     </script>
 }

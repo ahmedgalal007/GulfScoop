@@ -9,6 +9,8 @@ namespace gulfsoccer
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+
             routes.MapRoute(
                 name: "Admin",
                 url: "admin/{controller}/{action}/{id}",
@@ -22,11 +24,24 @@ namespace gulfsoccer
             //    defaults: new { controller = "Img", action = "Index" },
             //    namespaces: new string[] { "gulfsoccer.Controllers" }
             //);
+            routes.MapRoute(
+               name: "Profile",
+               url: "{month}/{day}/{permalink}",
+               defaults: new
+               {   controller = "Post", action = "OldPost", permalink = UrlParameter.Optional, },
+                    new
+                    {
+                        // year = @"\d{4}",
+                        month = @"\d{2}",
+                        day = @"\d{2}"
+                    },
+               namespaces: new string[] { "gulfsoccer.Controllers" }
+           );
 
             routes.MapRoute(
                 name: "Post",
-                url: "post/{permalink}",
-                defaults: new { controller = "Post", action = "Index", permalink = UrlParameter.Optional },
+                url: "Post/{permalink}",
+                defaults: new { controller = "Post", action = "Index", permalink = UrlParameter.Optional},
                 namespaces: new string[] { "gulfsoccer.Controllers" }
             );
 
@@ -50,12 +65,14 @@ namespace gulfsoccer
                 namespaces: new string[] { "gulfsoccer.Controllers" }
             );
 
-            routes.MapRoute(
-                name: "Profile",
-                url: "{slug}",
-                defaults: new { controller = "Post", action = "Index" },
-                namespaces: new string[] { "gulfsoccer.Controllers" }
-            );
+           // routes.MapRoute(
+           //    name: "OldPost",
+           //    url: "{*month}/{*day}/{*permalink}",
+           //    defaults: new { controller = "Post", action = "OldPost", month = UrlParameter.Optional, day = UrlParameter.Optional, permalink = UrlParameter.Optional },
+           //    namespaces: new string[] { "gulfsoccer.Controllers" }
+           //);
+
+           
         }
     }
 }

@@ -37,6 +37,12 @@ namespace gulfsoccer.Controllers
             return View("Post", getPostViewModel(post, _db));
         }
 
+        public ActionResult OldPost(string permaLink, string month, string day)
+        {
+            Post post = _db.Posts.Find(_db.PermaLinks.Where(L => L.Link == permaLink).FirstOrDefault().PostId);
+            return View("Post", getPostViewModel(post, _db));
+        }
+
         public PostViewModel getPostViewModel(Post dbPost, ApplicationDbContext db)
         {
             PostViewModel model = new PostViewModel();

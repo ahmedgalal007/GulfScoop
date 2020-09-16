@@ -1,6 +1,7 @@
 define(["require", "exports", "_shared/templates/cards/index", "_shared/templates/grids/index"], function (require, exports, index_1, index_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.MdbGridUI = void 0;
     function CardFactory(type) {
         return new index_1.CardFactoeies[type]();
     }
@@ -25,6 +26,7 @@ define(["require", "exports", "_shared/templates/cards/index", "_shared/template
                 _grid.Category = $(this).data('mdbGridCategory');
                 _grid.Cols = $(this).data('mdbGridCols');
                 _grid.Rows = $(this).data('mdbGridRows');
+                _grid.ThumbSize = $(this).data('mdbGridThumbSize');
                 _grid.Elem = prefix + count;
                 Grids.push(_grid);
                 gridPointers[prefix + count] = $(this);

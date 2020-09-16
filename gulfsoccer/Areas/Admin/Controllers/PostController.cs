@@ -3,9 +3,17 @@ using gulfsoccer.Areas.Admin.Models.PostViewModels;
 using gulfsoccer.Models;
 using gulfsoccer.Models.gulfsoccer;
 using gulfsoccer.utilities;
+using gulfsoccer.utilities.JSON;
+using ImageProccessingDotNet;
+using Kendo.Mvc.Extensions;
+using Microsoft.Ajax.Utilities;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using Telerik.Windows.Documents.Fixed.Model.Editing.Lists;
 
 namespace gulfsoccer.Areas.Admin.Controllers
 {
@@ -51,14 +59,20 @@ namespace gulfsoccer.Areas.Admin.Controllers
         public ActionResult Create(CreatePostViewModel post)
         {
             Post newPost;
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
 
+            // use the JavaScriptSerializer to deserialize our json into the expected object
+            List<CropBox> Thumbs = serializer.Deserialize<List<CropBox>>(post.featuredImagethumbs);
             if (post.id > 0)
             {
                 newPost = this._db.Posts.Find(post.id);
                 newPost.Body = post.body;
                 newPost.Created = post.created;
                 newPost.FeaturedAlbum = 0;
-                newPost.category = this._db.Categories.Where(I => I.name == post.mainCategory).FirstOrDefault().id;
+                if (this._db.Categories.Where(I => I.name == post.mainCategory).Count() > 0 && !string.IsNullOrEmpty(post.mainCategory))
+                {
+                    newPost.category = this._db.Categories.Where(I => I.name == post.mainCategory).FirstOrDefault().id;
+                }
                 newPost.Owner = post.owner;
                 newPost.Title = post.title;
                 newPost.Updated = post.updated;
@@ -103,6 +117,61 @@ namespace gulfsoccer.Areas.Admin.Controllers
                 newPost.FeaturedImage = this._db.Medias.Where(I => I.Uri == post.featuredImage).First().Id;
             }
 
+            ///  Add Thumbnails
+            int i = 0;
+            // List<Thumbnails> ThumbList = _db.Thumbnails.Where(TH => TH.MediaId == newPost.FeaturedImage).ToList();
+            foreach (CropBox item in Thumbs)
+            {
+                List<Thumbnails> ThumbList = _db.Thumbnails.Where(TH => TH.MediaId == newPost.FeaturedImage && TH.ThumbSizeId == item.ThumbSizeId).ToList();
+                if (ThumbList.Count() == 1 )
+                {
+                    ThumbList[0].MediaId = newPost.FeaturedImage;
+                    ThumbList[0].x = item.x;
+                    ThumbList[0].y = item.y;
+                    ThumbList[0].width = item.width;
+                    ThumbList[0].height = item.height;
+                    ThumbList[0].left = item.left;
+                    ThumbList[0].top = item.top;
+                    ThumbList[0].boxWidth = item.boxWidth;
+                    ThumbList[0].boxHeight = item.boxHeight;
+                    ThumbList[0].rotate = item.rotate;
+                    ThumbList[0].scaleX = item.scaleX;
+                    ThumbList[0].scaleY = item.scaleY;
+                    ThumbList[0].ThumbSizeId = item.ThumbSizeId;
+                    this._db.Thumbnails.Attach(ThumbList[0]);
+                    this._db.Entry(ThumbList[0]).State = System.Data.Entity.EntityState.Modified;
+                }
+                else
+                {
+                    _db.Thumbnails.Add(new Thumbnails
+                    {
+                        MediaId = newPost.FeaturedImage,
+                        x = item.x,
+                        y = item.y,
+                        width = item.width,
+                        height = item.height,
+                        left = item.left,
+                        top = item.top,
+                        boxWidth = item.boxWidth,
+                        boxHeight = item.boxHeight,
+                        rotate = item.rotate,
+                        scaleX = item.scaleX,
+                        scaleY = item.scaleY,
+                        ThumbSizeId = item.ThumbSizeId
+                    });
+                }
+
+                // Create The Thumbnail on the Disk
+                string ImagePath = this._db.Medias.Where(I => I.Uri == post.featuredImage).First().Uri;
+                string ImageName = Path.GetFileName(Server.MapPath(ImagePath));
+                string thumbsize = _db.ThumbSizes.Where(TZ => TZ.Id == item.ThumbSizeId).SingleOrDefault().Name;
+                string baseDir = "/Content/Thumbnails/" + thumbsize + "/";
+                string outPath = baseDir + ImageName;
+                MagicScalerFactory.ProccessImag(Server.MapPath(ImagePath), Server.MapPath(outPath), item);
+                i++;
+            }
+            // _db.Thumbnails.AddRange(ThumbList);
+            _db.SaveChanges();
             //}
             //catch (Exception e)
             //{
@@ -243,5 +312,7 @@ namespace gulfsoccer.Areas.Admin.Controllers
                 return View();
             }
         }
+
+
     }
 }

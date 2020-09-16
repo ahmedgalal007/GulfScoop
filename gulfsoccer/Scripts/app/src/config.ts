@@ -3,7 +3,7 @@ requirejs.config({
     baseUrl: 'Scripts/app/js/',
     paths: {
         MdbUI: './_shared/templates/MdbUI',
-        jquery: '../../jquery-3.4.1.min',
+        jquery: '../../jquery-3.5.1.min',
         kendo: '../../kendo/2019.2.619/kendo.all.min'
     }
 });

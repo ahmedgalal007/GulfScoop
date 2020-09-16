@@ -9,7 +9,7 @@ function CardFactory(type: string) {
 function GridFactory(type: string) {
     return new GridFactories[type]();
 };
-class grid { Type: string; Card: string; Category: 0; Cols: 0; Rows: 0; Elem: string };
+class grid { Type: string; Card: string; Category: 0; Cols: 0; Rows: 0; ThumbSize: string; Elem: string };
 export abstract class MdbGridUI {
     public static buildGrids(elements: JQuery) {
         // let result:JQuery = $('<div/>');
@@ -25,6 +25,7 @@ export abstract class MdbGridUI {
             _grid.Category = $(this).data('mdbGridCategory');
             _grid.Cols = $(this).data('mdbGridCols');
             _grid.Rows = $(this).data('mdbGridRows');
+            _grid.ThumbSize = $(this).data('mdbGridThumbSize');
             _grid.Elem = prefix + count;
             Grids.push(_grid);
             gridPointers[prefix + count] = $(this);

@@ -1,6 +1,7 @@
 define(["require", "exports", "_shared/templates/Abstract"], function (require, exports, Abstract_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.GridCardCategoryTitle = void 0;
     class GridCardCategoryTitle extends Abstract_1.BaseGrid {
         render(container, d) {
             container.addClass('container mt-5');

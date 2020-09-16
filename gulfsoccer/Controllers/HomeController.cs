@@ -1,10 +1,15 @@
 ﻿using gulfsoccer.Models;
 using gulfsoccer.Models.gulfsoccer;
 using gulfsoccer.utilities.JSON;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Configuration;
 using System.Web.Mvc;
+using WordPressPCL;
+using WordPressPCL.Models;
 
 namespace gulfsoccer.Controllers
 {
@@ -22,9 +27,12 @@ namespace gulfsoccer.Controllers
             this._db = Db;
         }
 
-        public ActionResult Index()
+        public  ActionResult Index()
         {
-            return View();
+            // WordPressClient client = Task.Run(() => GetClient()).Result; 
+
+            // var test = GetClient();
+                return View();
         }
 
         public ActionResult Mdb()
@@ -102,5 +110,52 @@ namespace gulfsoccer.Controllers
         //}
 
         #endregion "Helpers"
+
+        #region "WorpressPCL"
+        public static string GetClient()
+        // private  static WordPressClient GetClient()
+        {
+            // JWT authentication
+            var client =  new WordPressClient("https://khbar4u.com/wp-json/");
+            client.AuthMethod = AuthMethod.JWT;
+            // var post =  client.Posts.GetByID(11333).Result;
+            // client.AuthMethod = AuthMethod.JWT;
+
+            Task.Run(() => client.RequestJWToken("ahmedgalal007", "Sico007_")).ConfigureAwait(true).GetAwaiter().GetResult();
+           
+                //client.HttpResponsePreProcessing = (res) =>
+                //{
+                //    var newres = res;
+                //    // var clearedString = responseString.Replace("\n", "");
+                //    // var regex = @"\<head(.+)body\>";
+                //    // return System.Text.RegularExpressions.Regex.Replace(clearedString, regex, "");
+                //    // Do something here on the updatedResponse
+                //    return newres;
+                //};
+
+                if (client.IsValidJWToken().Result)
+                {
+                    
+                    var post = client.Posts.GetByID(11333).Result;
+                    //    // var post2 = JsonConvert.DeserializeObject<Post>(post);
+                    Console.WriteLine(post.Title.Raw);
+                    return post.Title.Raw;
+                };
+
+            
+
+            
+            return "";
+        }
+
+
+
+        public async Task<JsonResult> GetPost()
+        {
+            var client = new WordPressClient("https://khbar4u.com/wp-json/");
+            var post = await client.Posts.GetByID(11333);
+            return Json(post, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

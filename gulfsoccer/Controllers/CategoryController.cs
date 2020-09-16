@@ -35,6 +35,7 @@ namespace gulfsoccer.Controllers
                     result.Add(PostViewModel_Short.getPostViewModel(PVM, this._db));
                 });
             }
+            ViewBag.Title = cat.name;
             return View("PostGrid", result);
         }
     }

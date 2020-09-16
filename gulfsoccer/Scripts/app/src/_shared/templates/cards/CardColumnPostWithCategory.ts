@@ -95,7 +95,7 @@ export class CardColumnPostWithCategory extends BaseCard {
         this.card_title.text(d.title);
 
         this.card_data = $('<p/>');
-        this.card_data.html('by <a class= "font-weight-bold" href="' + d.writerLink + '" > ' + d.writerName + ' </a>, ' + new Date(/*d.lastUpdated*/));
+        this.card_data.html('by <a class= "font-weight-bold" href="' + d.writerLink + '" > ' + d.writerName + ' </a>, ' + d.lastUpdated);
 
         this.card_excerpt = $('<p/>');
         this.card_excerpt.addClass('dark-grey-text');

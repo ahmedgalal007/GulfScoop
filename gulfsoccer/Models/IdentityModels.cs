@@ -39,14 +39,20 @@ namespace gulfsoccer.Models
         public DbSet<PermaLink> PermaLinks { get; set; }
         public DbSet<PostCategory> PostCategories { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
+        public DbSet<Thumbnails> Thumbnails { get; set; }
+        public DbSet<ThumbSize> ThumbSizes { get; set; }
+        public DbSet<OldPostLink> OldPostLinks { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<OldPostLink>().HasKey(L => new { L.PostId });
             modelBuilder.Entity<PermaLink>().HasKey(L => new { L.PostId });
             modelBuilder.Entity<PostCategory>().HasKey(PC => new { PC.PostId, PC.CategoryId });
             modelBuilder.Entity<PostTag>().HasKey(PT => new { PT.PostId, PT.TagId });
             modelBuilder.Entity<AlbumMedia>().HasKey(AM => new { AM.AlbumId, AM.MediaId });
+            // modelBuilder.Entity<Thumbnails>().HasKey(TH => new { TH.Id });
         }
     }
 }

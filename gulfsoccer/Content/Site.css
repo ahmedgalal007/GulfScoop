@@ -29,6 +29,20 @@ img {
 }*/
 
 /*///////////////////////////////////////////////////////////////////////////////*/
+
+body {
+    text-align: right;
+    font-family: Cairo, "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: 20px;
+}
+
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Cairo , "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+
 .navbar .navbar-brand img {
     height: 20px;
 }
@@ -45,11 +59,45 @@ img {
     padding-top: 1px;
 }
 
-.card-intro .card-body {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-radius: 0 !important;
+.navbar ul{
+    margin-left: auto !important;
 }
+.mr-auto, .mx-auto {
+    margin-right: unset;
+}
+
+#mainArticle {
+    padding: 100px 0 0;
+    max-width: 100%;
+    /* background-color: rgba(0,0,0,0.3); */
+    text-shadow: 1px 1px #000;
+    min-height:400px;
+}
+    #mainArticle > div {
+        height: auto;
+        max-width: 100%;
+        position: relative;
+        height: 300px;    
+    }
+    #mainArticle > div > div {
+        position: absolute;
+        bottom:0;
+        right:0;
+        margin:10px 0;
+    }
+
+    #mainArticle > div > div h1 {
+        white-space:nowrap;
+    }
+#mainArticle > div:hover {
+    background-color: rgba(0,0,0,0.3);
+}
+
+    .card-intro .card-body {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-radius: 0 !important;
+    }
 
     .card-intro .card-body h1 {
         margin-bottom: 0;

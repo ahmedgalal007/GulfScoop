@@ -16,5 +16,6 @@ namespace DAL.Database
         public string Type { get; set; }
         public string Alt { get; set; }
         public string Description { get; set; }
+        public virtual List<Thumbnails> Thumbnails { get; set; }
     }
 }

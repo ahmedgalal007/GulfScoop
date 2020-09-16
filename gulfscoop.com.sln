@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gulfsoccer.utilities", "gul
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushNotifications.Service.Sqllite", "PushNotifications.Service.Sqllite\PushNotifications.Service.Sqllite.csproj", "{A0E44CC3-7528-4F16-8524-CC16A79EEC69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageProccessingDotNet", "ImageProccessingDotNet\ImageProccessingDotNet.csproj", "{9376EDF7-4A45-4BA6-B42C-89CC96480B8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A0E44CC3-7528-4F16-8524-CC16A79EEC69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0E44CC3-7528-4F16-8524-CC16A79EEC69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0E44CC3-7528-4F16-8524-CC16A79EEC69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9376EDF7-4A45-4BA6-B42C-89CC96480B8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9376EDF7-4A45-4BA6-B42C-89CC96480B8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9376EDF7-4A45-4BA6-B42C-89CC96480B8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9376EDF7-4A45-4BA6-B42C-89CC96480B8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

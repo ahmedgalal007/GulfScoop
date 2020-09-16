@@ -1,10 +1,11 @@
 ﻿@model List<gulfsoccer.Models.gulfsoccer.PostViewModel_Short>
+@using DAL.Database;
 @{
-    ViewBag.Title = "Index";
+    //ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <div id="cards-container" class="row mb-3 card-deck">
     @foreach (var item in Model)

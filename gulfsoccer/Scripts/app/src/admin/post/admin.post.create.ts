@@ -1,6 +1,7 @@
 ﻿///// <reference path="../../../../typings/require/require.d.ts" />
 /// <reference path="../../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../../../typings/kendo/kendo.all.d.ts" />
+/// <reference path="../../../lib/cropperjs/cropper.d.ts" />
 //,
 // import * as $ from 'jquery';
 // import * as kendo from 'kendo';
@@ -49,6 +50,7 @@
             const imgUrl = path.replace("{0}", "") + ((breadcrumbs === "/") ? "" : breadcrumbs) + e.selected.id;
             $("#featuredImage").val(imgUrl);
             $("#thumbnail").css({ "background-image": "url('" + imgUrl + "')", "background-size": "100% 100%" });
+            $("#ImgCropper").attr("src", imgUrl);
         },
         properties: [{ addToPath: "" }],
         transport: {
@@ -216,6 +218,9 @@
             filter: "contains",
             minLength: 3,
         });
+
+
+        
     });
 
     function initOpen(e: any) {
@@ -276,7 +281,145 @@
 
             dataSource.sync();
         }
+};
+
+//// ImageCropper /////////////////////////////////////////////////////
+
+    var ImageCropper = $('#ImageCropper'),
+        undo = $(".btn-thumbnail");
+    //var image = document.getElementById('thumbnail');
+    var cropBoxData;
+    var canvasData;
+    var cropper;
+    var cropOptions = {
+        autoCropArea: 0.9,
+        aspectRatio: 16 / 9,
+        ready: function () {
+            //Should set crop box data first here
+            cropper.setCropBoxData(cropBoxData).setCanvasData(canvasData);
+        },
+        cropstart: function (e) {
+            console.log(e.type, e.detail.action);
+        },
+        cropmove: function (e) {
+            console.log(e.type, e.detail.action);
+
+        },
+        cropend: function (e) {
+            console.log(e.type, e.detail.action);
+        },
+        crop: function (e) {
+            let currentThumbBox = cropOptions.thumbnailsBoxes[cropOptions.currentthumbindex];
+            let crpBoxData = cropper.getCropBoxData();
+            currentThumbBox.x = Math.round(e.detail.x);
+            currentThumbBox.y = Math.round(e.detail.y);
+            currentThumbBox.width = Math.round(e.detail.width);
+            currentThumbBox.height = Math.round(e.detail.height);
+            currentThumbBox.rotate = Math.round(e.detail.rotate);
+            currentThumbBox.scaleX = Math.round(e.detail.scaleX);
+            currentThumbBox.scaleY = Math.round(e.detail.scaleY);
+            currentThumbBox.left = Math.round(crpBoxData.left);
+            currentThumbBox.top = Math.round(crpBoxData.top);
+            currentThumbBox.boxWidth = Math.round(crpBoxData.width);
+            currentThumbBox.boxHeight = Math.round(crpBoxData.height);
+            currentThumbBox.ThumbSizeId = cropOptions.currentThumbSizeId;
+            $('#featuredImagethumbs').val(JSON.stringify(cropOptions.thumbnailsBoxes));
+            console.log($('#featuredImagethumbs').val());
+        },
+        currentthumbindex: 0,
+        currentThumbSizeId:0,
+        thumbnailsBoxes: JSON.parse($('#featuredImagethumbs').val() as string),
     };
+
+    undo.click(function (e:any) {
+        e.preventDefault();
+        e.stopPropagation = true;
+        ImageCropper.kendoDialog({
+            width: "450px",
+            title: "Crop Featured Image",
+            closable: true,
+            modal: true,
+            content: $('#cropperContentTemplate').html(),
+            actions: [
+                { text: 'Cancel' },
+                { text: 'OK', primary: true, action: actionOK }
+            ],
+            close: onCropperClose,
+            open: onCropperOpen,
+            // initOpen: onCropperInitOpen,
+            // show: onShow,
+            // hide: onHide
+        });
+        ImageCropper.data("kendoDialog").open();
+        //undo.fadeOut();
+    });
+
+    function onCropperClose() {
+        cropBoxData = cropper.getCropBoxData();
+        canvasData = cropper.getCanvasData();
+        cropper.destroy();
+        // undo.fadeIn();
+    }
+
+    function onCropperOpen() {
+        var image = $('#cropper-img');
+        image.attr('src', $('#ImgCropper').attr("src") as string);
+        console.log("Image-src:" + image.attr('src'));
+        //cropper = new Cropper(document.getElementById("cropper-img"), cropOptions);
+        $("#select-AspectRatio").kendoButtonGroup({
+            select: function (e) {
+                // let BoxSizesElem: Array<CropBox> = $('#featuredImagethumbs').val() as unknown as Array<CropBox>;
+                let BoxSizes: Array<CropBox> = cropOptions.thumbnailsBoxes;
+                if (BoxSizes.length == 0) {
+                    for (var i = 0; i < e.sender.element.children().length; i++) {
+                        BoxSizes[i] = new CropBox();
+                    }
+                }
+                
+                cropOptions.currentthumbindex = e.indices;
+                cropOptions.currentThumbSizeId = e.sender.element.children().eq(e.indices).data("thumbSizeId");
+                cropOptions.aspectRatio = e.sender.element.children().eq(e.indices).data("aspectRatio") // (<HTMLElement>(e.sender).element.data("aspectRatio")) as unknown as number;
+                if (cropper) {
+                    cropper.destroy(); 
+                };
+                if (BoxSizes[e.indices].width > 0 && BoxSizes[e.indices].height >0) {
+                    cropBoxData = { left: BoxSizes[e.indices].left, top: BoxSizes[e.indices].top, width: BoxSizes[e.indices].boxWidth, height: BoxSizes[e.indices].boxHeight };
+                }
+                cropper = new Cropper(document.getElementById("cropper-img"), cropOptions);
+            },
+            index: 0
+        });
+    }
+class CropBox {
+    public CropBox(ThumbSizeId: number, x: number, y: number, width: number, height: number
+        , rotate: number, scaleX: number, scaleY: number
+        , left: number, top: number, boxWidth: number, boxHeight: number) {
+        this.ThumbSizeId = ThumbSizeId;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.rotate = rotate;
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+        this.left = left;
+        this.top = top;
+        this.boxWidth = boxWidth;
+        this.boxHeight = boxHeight;
+    };   
+    ThumbSizeId: number = 0; 
+    x: number = 0;
+    y: number = 0;
+    width: number = 0;
+    height: number = 0;
+    rotate: number = 0;
+    scaleX: number = 0;
+    scaleY: number = 0;
+    left: number = 0;
+    top: number = 0;
+    boxWidth: number = 0;
+    boxHeight: number = 0;
+}
 // });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

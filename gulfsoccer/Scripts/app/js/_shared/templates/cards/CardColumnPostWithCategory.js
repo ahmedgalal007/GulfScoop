@@ -1,6 +1,7 @@
 define(["require", "exports", "_shared/templates/Abstract"], function (require, exports, Abstract_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.CardColumnPostWithCategory = void 0;
     class CardColumnPostWithCategory extends Abstract_1.BaseCard {
         constructor() {
             super();
@@ -27,7 +28,7 @@ define(["require", "exports", "_shared/templates/Abstract"], function (require, 
             this.card_title.addClass('font-weight-bold mb-3');
             this.card_title.text(d.title);
             this.card_data = $('<p/>');
-            this.card_data.html('by <a class= "font-weight-bold" href="' + d.writerLink + '" > ' + d.writerName + ' </a>, ' + new Date());
+            this.card_data.html('by <a class= "font-weight-bold" href="' + d.writerLink + '" > ' + d.writerName + ' </a>, ' + d.lastUpdated);
             this.card_excerpt = $('<p/>');
             this.card_excerpt.addClass('dark-grey-text');
             this.card_excerpt.text(d.excerpt == null ? "" : d.excerpt);

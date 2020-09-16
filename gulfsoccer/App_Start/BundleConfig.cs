@@ -39,7 +39,7 @@ namespace gulfsoccer
                       "~/Content/bootstrap.css"
                       , "~/Content/mdb/css/mdb.css"
                       //, "~/Content/blog.css"
-                      //, "~/Content/site.css"
+                      , "~/Content/site.css"
                       ));
             bundles.Add(new StyleBundle("~/Content/mdbprocss").Include(
                      "~/Content/mdbPro/css/bootstrap.css"

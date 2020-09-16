@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DAL.Database;
+using System;
+using System.Collections.Generic;
+using Telerik.Windows.Documents.Fixed.Model.Editing.Lists;
 
 namespace gulfsoccer.Areas.Admin.Models.PostViewModels
 {
@@ -17,7 +20,7 @@ namespace gulfsoccer.Areas.Admin.Models.PostViewModels
         public string tags { get; set; }
 
         public string featuredImage { get; set; }
-
+        public string featuredImagethumbs { get; set; }
         public string owner { get; set; }
         public string mainCategory { get; set; }
         public string permalink { get; set; }
