@@ -5,6 +5,10 @@ using gulfsoccer.utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security.Policy;
+using System.Text;
+using System.Web;
 using System.Web.Mvc;
 
 namespace gulfsoccer.Controllers
@@ -39,8 +43,28 @@ namespace gulfsoccer.Controllers
 
         public ActionResult OldPost(string permaLink, string month, string day)
         {
-            Post post = _db.Posts.Find(_db.PermaLinks.Where(L => L.Link == permaLink).FirstOrDefault().PostId);
-            return View("Post", getPostViewModel(post, _db));
+            Post post;
+            var oldLink = "/" + month + "/" + day + "/" + permaLink;
+            string ss = "";
+            foreach(var item in _db.OldPostLinks.ToList())
+            {
+                var ln1 = HttpUtility.HtmlDecode(item.Link);
+                if (ln1 != oldLink)
+                     ss = HttpUtility.UrlEncode(oldLink);
+                if (ss != oldLink)
+                    ss = HttpUtility.UrlDecode(oldLink);
+            }
+            if (_db.OldPostLinks.ToList().Where(
+                    L => HttpUtility.UrlDecode(L.Link.TrimEnd('/')) == oldLink.TrimEnd('/') 
+                ).Any())
+            {
+                post = _db.Posts.Find(_db.OldPostLinks.Where(L => L.Link == HttpUtility.UrlEncode(oldLink)).FirstOrDefault().PostId);
+                return View("Post", getPostViewModel(post, _db));
+            }
+            else
+            {
+                return new HttpStatusCodeResult( HttpStatusCode.NotFound);
+            }
         }
 
         public PostViewModel getPostViewModel(Post dbPost, ApplicationDbContext db)

@@ -65,8 +65,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
-      <HintPath>..\packages\Portable.BouncyCastle.1.8.6.7\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="dotnet-aspnet-codegenerator-design, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.VisualStudio.Web.CodeGeneration.Design.3.1.4\lib\net461\dotnet-aspnet-codegenerator-design.exe</HintPath>
@@ -76,6 +76,9 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.24.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.24\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Humanizer, Version=2.8.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.8.26\lib\netstandard2.0\Humanizer.dll</HintPath>
@@ -547,6 +550,10 @@
     <Compile Include="Migrations\202009160658488_Add_OldPostLink.cs" />
     <Compile Include="Migrations\202009160658488_Add_OldPostLink.designer.cs">
       <DependentUpon>202009160658488_Add_OldPostLink.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009180832324_Fix_OldLink_Column_Type.cs" />
+    <Compile Include="Migrations\202009180832324_Fix_OldLink_Column_Type.designer.cs">
+      <DependentUpon>202009180832324_Fix_OldLink_Column_Type.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -6947,6 +6954,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009160658488_Add_OldPostLink.resx">
       <DependentUpon>202009160658488_Add_OldPostLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009180832324_Fix_OldLink_Column_Type.resx">
+      <DependentUpon>202009180832324_Fix_OldLink_Column_Type.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

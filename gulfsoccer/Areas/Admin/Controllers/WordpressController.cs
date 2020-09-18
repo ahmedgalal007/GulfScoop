@@ -23,16 +23,35 @@ namespace gulfsoccer.Areas.Admin.Controllers
         public HttpStatusCode index(int wpPostID)
         {
             PostUtils.setWpServerUri("https://khbar4u.com/wp-json/");
-            var post = PostUtils.AddWordpressPost(11333);
+            var post = PostUtils.AddWordpressPost(wpPostID);
 
             if(post != null)
             {
+                Console.Write(Json(post).ToString());
                 return HttpStatusCode.OK;
             }
             else
             {
-                return HttpStatusCode.InternalServerError;
+                return HttpStatusCode.Found;
             }
+        }
+
+        [HttpPost]
+        public async Task<HttpStatusCode> ImportCategories()
+        {
+            PostUtils.setWpServerUri("https://khbar4u.com/wp-json/");
+            await PostUtils.CreateWordPressCategories();
+
+                return HttpStatusCode.OK;
+        }
+
+        [HttpPost]
+        public async Task<HttpStatusCode> ImportTags()
+        {
+            PostUtils.setWpServerUri("https://khbar4u.com/wp-json/");
+            await PostUtils.CreateWordPressTags();
+
+            return HttpStatusCode.OK;
         }
 
         public async Task<JsonResult> GetPost()
